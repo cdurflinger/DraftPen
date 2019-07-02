@@ -1,9 +1,9 @@
-const sqlite3 = require('sqlite3').verbose();
-//modules used to hash passwords
-const BCRYPT = require('bcrypt');
-const saltRounds = 10;
-
 function DatabaseAPI(DB_PATH, dbSchema) {
+    const sqlite3 = require('sqlite3').verbose();
+    //modules used to hash passwords
+    const BCRYPT = require('bcrypt');
+    const saltRounds = 10;
+
     const DB = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
         if (err) {
             return console.log(err.message);
@@ -36,17 +36,32 @@ function DatabaseAPI(DB_PATH, dbSchema) {
             });
         },
         verifyUserPassword: (username, password) => {
-            let sql = `SELECT password password FROM Users WHERE username = ?`;
-            DB.get(sql, [`${username}`], (err, row) => {
-                BCRYPT.compare(password, row.password, (err, res) => {
-                    if(err) {
-                        console.log(err);
+            return new Promise((resolve, reject) => {
+                let sql = `SELECT password password FROM Users WHERE username = ?`;
+                DB.get(sql, [username], (sqlErr, row) => {
+                    if(sqlErr){
+                        reject(sqlErr);
+                        return;
                     }
-                    if(res) {
-                        return true;
-                    } else {
-                        return false;
+                    BCRYPT.compare(password, row.password, (bcryptErr, res) => {
+                        if(bcryptErr) {					
+                            reject(bcryptErr);
+                            return;
+                        }
+                        resolve(res);
+                    });
+                });
+            });
+        },
+        getUserData: (username) => {
+            return new Promise((resolve, reject) => {
+                let sql = `SELECT id id, email email,first_name firstName, last_name lastName FROM Users WHERE username = ?`;
+                DB.get(sql, [username], (sqlErr, row) => {
+                    if(sqlErr){
+                        reject(sqlErr);
+                        return;
                     }
+                    resolve(row);
                 });
             });
         },

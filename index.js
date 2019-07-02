@@ -4,11 +4,10 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const hbs = require('express-handlebars');
 const routes = require('./routes/index');
-// const { DatabaseAPI} = require('./db/database');
-// const dbMeta = require('./db/dbSchema');
-// const DB_PATH = './db/database.db';
-// const DB = new DatabaseAPI(DB_PATH, dbMeta.dbSchema);
-// const sqlite3 = require('sqlite3').verbose();
+
+//Authentication
+const session = require('express-session');
+const passport = require('passport');
 
 const app = express();
 
@@ -17,57 +16,22 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( { extended: false } ));
-app.use('/', routes);
 app.use(express.static('public'));
 
+app.use(session({
+    //used to sign the session ID cookie
+    secret: 's^%*&afj2KKS2j$^l342hDFLUl1nsaf!@',
+    //true saves the session, even if never modified. false saves only if modified
+    resave: true,
+    //true saves a session that is uninitialized (session is new but not modified) *ie user visits page
+    saveUninitialized: false,
+    //set to true if hosted HTTPS, false otherwise
+    cookie: { secure: false }
+  }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-
-//open the db
-// const DB = new sqlite3.Database('./db/database.db', sqlite3.OPEN_READWRITE, (err) => {
-//     if (err) {
-//         return console.log(err.message);
-//     }
-//     DB.exec('PRAGMA foreign_keys = ON', (err) => {
-//         if(err) {
-//             console.log(err);
-//         } else {
-//             console.log('Foreign Key Enforcement is on.');
-//         }
-//     });
-// });
-
-// const dbSchema = `CREATE TABLE IF NOT EXISTS Users (
-//     id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-//     username text NOT NULL UNIQUE,
-//     password text NOT NULL,
-//     salt text,
-//     email text NOT NULL UNIQUE,
-//     first_name text,
-//     last_name text
-// );
-//     CREATE TABLE IF NOT EXISTS Blogs (
-//         id integer NOT NULL PRIMARY KEY,
-//         user_id NOT NULL UNIQUE,
-//         blog text,
-//         title text NOT NULL,
-//         publish_date date,
-//         modified_date date,
-//             FOREIGN KEY (user_id) REFERENCES Users(id)
-//     );`
-
-// DB.serialize(() => {
-//     DB.exec(dbSchema, (err) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//     });
-// });
-
-// DB.close((err) => {
-//     if (err) {
-//         return console.log(err.message);
-//     }
-// });
+  app.use('/', routes);
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}!`);
