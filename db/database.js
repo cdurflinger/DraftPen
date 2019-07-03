@@ -53,10 +53,13 @@ function DatabaseAPI(DB_PATH, dbSchema) {
                 });
             });
         },
-        getUserData: (username) => {
+        getUserData: (username, user_id) => {
             return new Promise((resolve, reject) => {
-                let sql = `SELECT id id, email email,first_name firstName, last_name lastName FROM Users WHERE username = ?`;
-                DB.get(sql, [username], (sqlErr, row) => {
+                let sqlParam = username || user_id;
+                let sql = username ? `SELECT id id, email email,first_name firstName, last_name lastName FROM Users WHERE username = ?` : `SELECT username username, email email,first_name firstName, last_name lastName FROM Users WHERE id = ?`;
+                
+                // let sql = `SELECT id id, email email,first_name firstName, last_name lastName FROM Users WHERE username = ?`;
+                DB.get(sql, [sqlParam], (sqlErr, row) => {
                     if(sqlErr){
                         reject(sqlErr);
                         return;

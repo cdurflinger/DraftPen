@@ -8,6 +8,7 @@ const routes = require('./routes/index');
 //Authentication
 const session = require('express-session');
 const passport = require('passport');
+const SQLiteStore = require('connect-sqlite3')(session);
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded( { extended: false } ));
 app.use(express.static('public'));
 
 app.use(session({
+    store: new SQLiteStore,
     //used to sign the session ID cookie
     secret: 's^%*&afj2KKS2j$^l342hDFLUl1nsaf!@',
     //true saves the session, even if never modified. false saves only if modified
