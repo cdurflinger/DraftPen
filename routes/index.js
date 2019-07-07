@@ -20,31 +20,37 @@ const authenticationMiddleware = () => {
 router.get('/', (req, res, next) => {
     // console.log(req.user);
     // console.log(req.isAuthenticated());
-    res.render('home', {
-        title: 'Home',
-        style: 'main.css',
+    DB.getAllBlogPosts().then((blogs) => {
+        res.render('home', {
+            title: 'Home',
+            style: 'home.css',
+            blogs: blogs,
+        });
     });
 });
 
 router.get('/register', (req, res, next) => {
     res.render('register', {
        title: 'Register',
-       style: 'main.css', 
+    //    style: 'main.css', 
     });
 });
 
 router.get('/login', (req, res, next) => {
     res.render('login', {
         title: 'Login',
-        style: 'main.css',
+        // style: 'main.css',
     });
 });
 
 router.get('/dashboard', authenticationMiddleware(), (req, res, next) => {
     DB.getUserData(null, req.user).then((user_data) => {
-        res.render('dashboard', {
-            title: `${user_data.firstName}'s Dashboard`,
-            style: 'main.css',
+        DB.getUserBlogPosts(req.user).then((blogs) => {
+            res.render('dashboard', {
+                title: `${user_data.firstName}'s Dashboard`,
+                style: 'dashboard.css',
+                blogs: blogs,
+            });
         });
     });
 });
@@ -65,7 +71,6 @@ router.post('/login', (req, res, next) => {
     DB.verifyUserPassword(`${req.body.username}`, `${req.body.password}`).then((login) => {
         if(login) {
             DB.getUserData(req.body.username).then((user_data) => {
-                // console.log(user_data);
                 req.login(user_data.id, (err) => {
                     if(err) {
                         return next(err);
@@ -79,7 +84,18 @@ router.post('/login', (req, res, next) => {
             style: 'main.css', 
             });
         }
-    })
+    });
+});
+
+router.post('/blogPost', (req, res, next) => {
+    DB.getUserData(null, req.user).then((user_data) => {
+        DB.createBlogPost(user_data, req.body).then(() => {
+            res.render('dashboard', {
+                title: 'Blog Posted!',
+                style: 'main.css',
+            });
+        });
+    });
 });
 
 passport.serializeUser(function(user, done) {

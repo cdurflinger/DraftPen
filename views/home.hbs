@@ -1,12 +1,11 @@
 {{> header}}
-<br>
-<br>
-<br>
-<br>
 <h1>{{title}}</h1>
-<a href="login">Login here</a>
-<br>
-<br>
-<br>
-<br>
+
+{{#each blogs}}
+<div class="blogContainer">
+    <p>Title: {{title}}</p>
+    <p>Blog Post: {{blog}}</p>
+</div>
+{{/each}}
+
 {{>footer}}

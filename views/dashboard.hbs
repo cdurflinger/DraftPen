@@ -1,11 +1,17 @@
 {{> header}}
-<br>
-<br>
-<br>
-<br>
 <h1>{{title}}</h1>
-<br>
-<br>
-<br>
-<br>
+<h2>Create new Blog</h2>
+<form action="/blogPost" method="post">
+    <input type="text" name="title" placeholder="Blog Title">
+    <textarea name="blogpost" placeholder="Create your blog post here..."></textarea>
+    <button type="submit">Create Post</button>
+</form>
+
+{{#each blogs}}
+<div class="blogContainer">
+    <p>Title: {{title}}</p>
+    <p>Blog Post: {{blog}}</p>
+</div>
+{{/each}}
+
 {{> footer}}
