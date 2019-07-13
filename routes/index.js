@@ -98,6 +98,11 @@ router.post('/blogPost', (req, res, next) => {
     });
 });
 
+router.post('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
