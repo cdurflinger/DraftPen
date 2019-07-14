@@ -44,3 +44,23 @@ footer {
             text-decoration: none;
         }
 }
+.formContainer {
+    width: 100%;
+    h1 {
+        font-size: 3.5em;
+        text-align: center;
+    }
+    form {
+        margin-top: 2em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        input {
+            width: 50%;
+        }
+        button {
+            margin-top: 1em;
+            width: 30%;
+        }
+    }
+}

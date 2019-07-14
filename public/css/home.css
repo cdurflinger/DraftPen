@@ -4,7 +4,9 @@ h1 {
 
 .blogContainer {
   border: 1px solid black;
+  border-radius: 10px;
+  width: 60%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px auto;
 }
 /*# sourceMappingURL=home.css.map */

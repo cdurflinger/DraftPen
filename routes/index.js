@@ -21,11 +21,19 @@ router.get('/', (req, res, next) => {
     // console.log(req.user);
     // console.log(req.isAuthenticated());
     DB.getAllBlogPosts().then((blogs) => {
-        res.render('home', {
-            title: 'Home',
-            style: 'home.css',
-            blogs: blogs,
-        });
+        if(req.user){
+            res.render('userHome', {
+                title: 'The latest blog posts!',
+                style: 'home.css',
+                blogs: blogs,
+            });   
+        } else {
+            res.render('home', {
+                title: 'The latest blog posts!',
+                style: 'home.css',
+                blogs: blogs,
+            });
+        }
     });
 });
 
@@ -33,13 +41,6 @@ router.get('/register', (req, res, next) => {
     res.render('register', {
        title: 'Register',
     //    style: 'main.css', 
-    });
-});
-
-router.get('/login', (req, res, next) => {
-    res.render('login', {
-        title: 'Login',
-        // style: 'main.css',
     });
 });
 
@@ -53,6 +54,19 @@ router.get('/dashboard', authenticationMiddleware(), (req, res, next) => {
             });
         });
     });
+});
+
+//login and logout requests
+router.get('/login', (req, res, next) => {
+    res.render('login', {
+        title: 'Login',
+        style: 'main.css',
+    });
+});
+
+router.get('/logout', (req, res, next) => {
+    req.logout();
+    res.redirect('/');
 });
 
 
@@ -96,11 +110,6 @@ router.post('/blogPost', (req, res, next) => {
             });
         });
     });
-});
-
-router.post('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
 });
 
 passport.serializeUser(function(user, done) {

@@ -1,19 +1,25 @@
-{{> header}}
-<br>
-<br>
-<br>
-<br>
-<h1>{{title}}</h1>
-<form action="/login" method="post">
-<label>Username</label>
-<input type="text" name="username" placeholder="Username">
-<label>Password</label>
-<input type="password" name="password" placeholder="Password">
-<button type="submit">Login</button>
-</form>
-<p>Not a user? <a href="register">Register Here</a></p>
-<br>
-<br>
-<br>
-<br>
-{{> footer}}
+<nav>
+    <h2>DraftPen</h2>
+    <ul>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
+<div class="formContainer">
+    <h1>{{title}}</h1>
+    <form action="/login" method="post">
+    <label>Username</label>
+    <input type="text" name="username" placeholder="Username">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Password">
+    <button type="submit">Login</button>
+    </form>
+    <p>Not a user? <a href="register">Register Here</a></p>
+</div>
+
+<footer>
+        <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="about">About</a></li>
+        </ul>
+</footer>

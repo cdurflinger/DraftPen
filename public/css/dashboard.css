@@ -2,9 +2,15 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  text-align: center;
+}
+
 .blogContainer {
   border: 1px solid black;
+  border-radius: 10px;
+  width: 60%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px auto;
 }
 /*# sourceMappingURL=dashboard.css.map */
