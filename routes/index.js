@@ -16,7 +16,7 @@ const authenticationMiddleware = () => {
 }
 
 
-//get Login Page
+//get Home Page
 router.get('/', (req, res, next) => {
     // console.log(req.user);
     // console.log(req.isAuthenticated());
@@ -51,6 +51,7 @@ router.get('/dashboard', authenticationMiddleware(), (req, res, next) => {
                 title: `${user_data.firstName}'s Dashboard`,
                 style: 'dashboard.css',
                 blogs: blogs,
+                user: user_data,
             });
         });
     });

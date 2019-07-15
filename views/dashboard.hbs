@@ -2,16 +2,27 @@
 {{> sessionHeader}}
 
 <h1>{{title}}</h1>
+<hr>
+<div class="userDashboardInformation">
+    <h3>My user information</h3>
+    <p>Username: {{user.username}}</p>
+    <p>E-mail: {{user.email}}</p>
+    <p>First Name: {{user.firstName}}</p>
+    <p>Last Name: {{user.lastName}}</p>
+</div>
+<hr>
 <h3>Create new Blog</h2>
 <form action="/blogPost" method="post">
     <input type="text" name="title" placeholder="Blog Title">
     <textarea name="blogpost" placeholder="Create your blog post here..."></textarea>
     <button type="submit">Create Post</button>
 </form>
+<hr>
 <h2>Your  blog posts</h2>
 {{#each blogs}}
 <div class="blogContainer">
     <p>Title: {{title}}</p>
+    <p>Published on: {{publishDate}}</p>
     <p>Blog Post: {{blog}}</p>
 </div>
 {{/each}}

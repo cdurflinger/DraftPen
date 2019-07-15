@@ -69,10 +69,15 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         },
         createBlogPost: (user, contents) => {
             return new Promise((resolve, reject) => {
-                let sql = `INSERT INTO Blogs(user_id, blog, title)
-                VALUES(?, ?, ?)`;
-                DB.run(sql, [user.id, contents.blogpost, contents.title], (sqlErr) => {
-                    // console.log(user.id, contents.blogpost, contents.title);
+                let sql = `INSERT INTO Blogs(user_id, blog, title, publish_date)
+                VALUES(?, ?, ?, ?)`;
+                const DATE = new Date();
+                const MONTH = DATE.getMonth() + 1;
+                const DAY = DATE.getDate();
+                const YEAR = DATE.getFullYear();
+                let newDate = `${MONTH}/${DAY}/${YEAR}`;
+                DB.run(sql, [user.id, contents.blogpost, contents.title, newDate], (sqlErr) => {
+                    // console.log(user.id, contents.blogpost, contents.title, newDate);
                     if (sqlErr) {
                         reject(sqlErr);
                         return;
@@ -95,7 +100,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         },
         getUserBlogPosts: (user) => {
             return new Promise((resolve, reject) => {
-                let sql = `SELECT blog blog, title title FROM Blogs WHERE user_id = ? ORDER BY title`;
+                let sql = `SELECT blog blog, title title, publish_date publishDate FROM Blogs WHERE user_id = ? ORDER BY id`;
                 DB.all(sql, [user], (sqlErr, rows) => {
                     if (sqlErr) {
                         reject(sqlErr);

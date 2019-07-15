@@ -50,7 +50,6 @@ footer {
   display: -ms-flexbox;
   display: flex;
   height: 5vh;
-  position: fixed;
   bottom: 0;
 }
 
