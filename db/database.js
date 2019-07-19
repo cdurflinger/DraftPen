@@ -106,13 +106,13 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         },
         updateBlogPost: (content) => {
             return new Promise((resolve, reject) => {
-                let sql = `UPDATE Blogs SET blog = ?, title = ?, modified_date = ?`;
+                let sql = `UPDATE Blogs SET blog = ?, title = ?, modified_date = ? WHERE id = ?`;
                 const DATE = new Date();
                 const MONTH = DATE.getMonth() + 1;
                 const DAY = DATE.getDate();
                 const YEAR = DATE.getFullYear();
                 const NEW_DATE = `${MONTH}/${DAY}/${YEAR}`;
-                DB.run(sql, [content.blog, content.title, NEW_DATE], (sqlErr) => {
+                DB.run(sql, [content.content, content.title, NEW_DATE, content.id], (sqlErr) => {
                     if(sqlErr) {
                         reject(sqlErr);
                         return;

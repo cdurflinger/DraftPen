@@ -30,9 +30,9 @@
 <div class="blogContainer" id={{id}}>
     <button class="editPostButton">Edit Blog Post</button>
     <button class="deletePostButton">Delete Blog Post</button>
-    <p>Title: {{title}}</p>
+    <p>Title: <span id=t{{id}}>{{title}}</span></p>
     <p>Published on: {{publishDate}}</p>
-    <p>Blog Post: {{blog}}</p>
+    <p>Blog Post: <span id= b{{id}}>{{blog}}</span></p>
 </div>
 {{/each}}
 

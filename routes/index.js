@@ -119,7 +119,7 @@ router.delete('/dashboard/blog/delete/:id', (req, res, next) => {
 });
 
 router.post('/dashboard/blog/modify/:id', (req, res, next) => {
-    console.log(req.params);
+    DB.updateBlogPost(req.body);
 });
 
 passport.serializeUser(function(user, done) {
