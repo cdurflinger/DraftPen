@@ -40,7 +40,7 @@ router.get('/', (req, res, next) => {
 router.get('/register', (req, res, next) => {
     res.render('register', {
        title: 'Register',
-    //    style: 'main.css', 
+       style: 'main.css', 
     });
 });
 
@@ -50,6 +50,7 @@ router.get('/dashboard', authenticationMiddleware(), (req, res, next) => {
             res.render('dashboard', {
                 title: `${user_data.firstName}'s Dashboard`,
                 style: 'dashboard.css',
+                script: `dashboard.js`,
                 blogs: blogs,
                 user: user_data,
             });
@@ -111,6 +112,14 @@ router.post('/blogPost', (req, res, next) => {
             });
         });
     });
+});
+
+router.delete('/dashboard/blog/delete/:id', (req, res, next) => {
+    DB.deleteBlogPost(req.params.id);
+});
+
+router.post('/dashboard/blog/modify/:id', (req, res, next) => {
+    console.log(req.params);
 });
 
 passport.serializeUser(function(user, done) {

@@ -6,11 +6,118 @@ h2 {
   text-align: center;
 }
 
+.userDashboardInformation {
+  text-align: center;
+}
+
+.userDashboardInformation h3 {
+  text-decoration: underline;
+}
+
+.newBlog {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.newBlog form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.newBlog form input[type="text"] {
+  width: 25%;
+  height: 25px;
+  border: .5px solid lightgrey;
+  padding: 3px;
+  margin-bottom: 5px;
+}
+
+.newBlog form textarea {
+  width: 50%;
+  height: 100px;
+  border: .5px solid lightgrey;
+  padding: 3px;
+}
+
+.newBlog form button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 20%;
+}
+
 .blogContainer {
   border: 1px solid black;
   border-radius: 10px;
   width: 60%;
   padding: 10px;
   margin: 10px auto;
+}
+
+.editPostContainerShow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 300px;
+}
+
+.editPostContainerShow input[type="text"] {
+  width: 25%;
+  height: 25px;
+  border: .5px solid lightgrey;
+  padding: 3px;
+  margin-bottom: 5px;
+}
+
+.editPostContainerShow textarea {
+  width: 50%;
+  height: 100px;
+  border: .5px solid lightgrey;
+  padding: 3px;
+}
+
+.editPostContainerShow button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 20%;
+}
+
+.editPostContainerHide {
+  display: none;
+  width: 100%;
+  height: 300px;
 }
 /*# sourceMappingURL=dashboard.css.map */

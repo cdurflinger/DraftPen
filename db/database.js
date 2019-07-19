@@ -2,7 +2,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
     const sqlite3 = require('sqlite3').verbose();
     //modules used to hash passwords
     const BCRYPT = require('bcrypt');
-    const saltRounds = 10;
+    const SALT_ROUNDS = 10;
 
     const DB = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
         if (err) {
@@ -23,11 +23,17 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         }
     });
 
+    // const DB_CLOSE = DB.close((err) => {
+    //     if(err) {
+    //         console.error(err.message);
+    //     }
+    // });
+
     return {
         registerUser: (username, password, email, first, last) => {
             let sql = `INSERT INTO Users(username, password, email, first_name, last_name)
                         VALUES(?, ?, ?, ?, ?)`;
-            BCRYPT.hash(password, saltRounds, (err, hash) => {
+            BCRYPT.hash(password, SALT_ROUNDS, (err, hash) => {
                 DB.run(sql, username, hash, email, first, last, (err) => {
                     if(err) {
                         console.log(err);
@@ -75,8 +81,8 @@ function DatabaseAPI(DB_PATH, dbSchema) {
                 const MONTH = DATE.getMonth() + 1;
                 const DAY = DATE.getDate();
                 const YEAR = DATE.getFullYear();
-                let newDate = `${MONTH}/${DAY}/${YEAR}`;
-                DB.run(sql, [user.id, contents.blogpost, contents.title, newDate], (sqlErr) => {
+                const NEW_DATE = `${MONTH}/${DAY}/${YEAR}`;
+                DB.run(sql, [user.id, contents.blogpost, contents.title, NEW_DATE], (sqlErr) => {
                     // console.log(user.id, contents.blogpost, contents.title, newDate);
                     if (sqlErr) {
                         reject(sqlErr);
@@ -86,9 +92,38 @@ function DatabaseAPI(DB_PATH, dbSchema) {
                 });
             });
         },
+        deleteBlogPost: (user) => {
+            return new Promise((resolve, reject) => {
+                let sql = `DELETE FROM Blogs WHERE id = ?`;
+                DB.run(sql, [user], (sqlErr) => {
+                    if(sqlErr) {
+                        reject(sqlErr);
+                        return;
+                    }
+                    resolve();
+                });
+            });
+        },
+        updateBlogPost: (content) => {
+            return new Promise((resolve, reject) => {
+                let sql = `UPDATE Blogs SET blog = ?, title = ?, modified_date = ?`;
+                const DATE = new Date();
+                const MONTH = DATE.getMonth() + 1;
+                const DAY = DATE.getDate();
+                const YEAR = DATE.getFullYear();
+                const NEW_DATE = `${MONTH}/${DAY}/${YEAR}`;
+                DB.run(sql, [content.blog, content.title, NEW_DATE], (sqlErr) => {
+                    if(sqlErr) {
+                        reject(sqlErr);
+                        return;
+                    }
+                    resolve();
+                });
+            });
+        },
         getAllBlogPosts: () => {
             return new Promise((resolve, reject) => {
-                let sql = `SELECT blog blog, title title FROM Blogs ORDER BY title`;
+                let sql = `SELECT blog blog, title title FROM Blogs ORDER BY id`;
                 DB.all(sql, [], (sqlErr, rows) => {
                     if (sqlErr) {
                         reject(sqlErr);
@@ -100,7 +135,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         },
         getUserBlogPosts: (user) => {
             return new Promise((resolve, reject) => {
-                let sql = `SELECT blog blog, title title, publish_date publishDate FROM Blogs WHERE user_id = ? ORDER BY id`;
+                let sql = `SELECT id id, blog blog, title title, publish_date publishDate FROM Blogs WHERE user_id = ? ORDER BY id`;
                 DB.all(sql, [user], (sqlErr, rows) => {
                     if (sqlErr) {
                         reject(sqlErr);

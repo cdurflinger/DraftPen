@@ -11,16 +11,25 @@
     <p>Last Name: {{user.lastName}}</p>
 </div>
 <hr>
-<h3>Create new Blog</h2>
+<div class="newBlog">
+<h3>Create new Blog</h3>
 <form action="/blogPost" method="post">
     <input type="text" name="title" placeholder="Blog Title">
     <textarea name="blogpost" placeholder="Create your blog post here..."></textarea>
     <button type="submit">Create Post</button>
 </form>
+</div>
 <hr>
 <h2>Your  blog posts</h2>
+<div id="editPostContainer" class="editPostContainerShow editPostContainerHide">
+    <input type="text" id="editBlogTitle">
+    <textarea id="editBlogContent"></textarea>
+    <button id="editBlogSubmitButton">Modify Blog Post</button>
+</div>
 {{#each blogs}}
-<div class="blogContainer">
+<div class="blogContainer" id={{id}}>
+    <button class="editPostButton">Edit Blog Post</button>
+    <button class="deletePostButton">Delete Blog Post</button>
     <p>Title: {{title}}</p>
     <p>Published on: {{publishDate}}</p>
     <p>Blog Post: {{blog}}</p>
