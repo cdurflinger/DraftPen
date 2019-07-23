@@ -130,7 +130,7 @@ router.post('/blogPost', (req, res, next) => {
     });
 });
 
-router.get('/dashboard/:username', (req, res, next) => {
+router.get('/dashboard/:username', authenticationMiddleware(), (req, res, next) => {
     DB.getUserData(req.params.username).then((user_data) => {
         DB.getUserBlogPosts(user_data.id).then((blogs) => {
             res.render('adminControl', {
@@ -151,6 +151,14 @@ router.delete('/dashboard/blog/delete/:id', (req, res, next) => {
 
 router.post('/dashboard/blog/modify/:id', (req, res, next) => {
     DB.updateBlogPost(req.body);
+});
+
+router.post('/dashboard/user/modify/:id', (req, res, next) => {
+    DB.modifyUserData(req.body);
+});
+
+router.delete('/dashboard/user/delete/:id', (req, res, next) => {
+    DB.deleteUser(req.params);
 });
 
 passport.serializeUser(function(user, done) {

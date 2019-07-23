@@ -1,13 +1,30 @@
 
 {{> sessionHeader}}
 {{title}}
-
+<br>
+<br>
 <div id="userDataContainer">
-    <h1>{{user_data.firstName}} {{user_data.lastName}}</h1>
-    <p>{{user_data.username}}</p>
-    <p>{{user_data.id}}</p>
-    <p>{{user_data.permissionLevel}}</p>
-    <p>{{user_data.email}}</p>
+    <p>First Name: <input type="text" id="firstName" value={{user_data.firstName}}></p>
+    <p>Last Name: <input type="text" id="lastName" value={{user_data.lastName}}></p>
+    <p>Username: <input type="text" id="username" value={{user_data.username}}></p>
+    <p>User Id: <span id="userId">{{user_data.id}}</span></p>
+    <p>Permission Level Guide</p>
+    <p>1(user) 5(admin)</p>
+    <p>User Permission Level: <input type="text" id="permissionLevel" value={{user_data.permissionLevel}}></p>
+    <p>User Email: <input type="text" id="userEmail" value={{user_data.email}}></p>
+    <button id="updateUserButton">Update User Information</button>
+</div>
+<br>
+<br>
+<div>
+    <button id="deleteUserButton">Delete This User</button>
+</div>
+<br>
+<br>
+<div id="editPostContainer" class="editPostContainerShow editPostContainerHide">
+    <input type="text" id="editBlogTitle">
+    <textarea id="editBlogContent"></textarea>
+    <button id="editBlogSubmitButton">Modify Blog Post</button>
 </div>
 <div id="userBlogContainer">
     {{#each blogs}}
