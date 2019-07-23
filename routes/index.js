@@ -24,13 +24,17 @@ router.get('/', (req, res, next) => {
         if(req.user){
             res.render('userHome', {
                 title: 'The latest blog posts!',
-                style: 'home.css',
+                mainStyle: 'css/main.css',
+                style: 'css/home.css',
+                script: 'script/main.js',
                 blogs: blogs,
             });   
         } else {
             res.render('home', {
                 title: 'The latest blog posts!',
-                style: 'home.css',
+                mainStyle: 'css/main.css',
+                style: 'css/home.css',
+                script: 'script/main.js',
                 blogs: blogs,
             });
         }
@@ -40,21 +44,33 @@ router.get('/', (req, res, next) => {
 router.get('/register', (req, res, next) => {
     res.render('register', {
        title: 'Register',
-       style: 'main.css', 
+       mainStyle: 'css/main.css', 
     });
 });
 
 router.get('/dashboard', authenticationMiddleware(), (req, res, next) => {
     DB.getUserData(null, req.user).then((user_data) => {
-        DB.getUserBlogPosts(req.user).then((blogs) => {
-            res.render('dashboard', {
-                title: `${user_data.firstName}'s Dashboard`,
-                style: 'dashboard.css',
-                script: `dashboard.js`,
-                blogs: blogs,
-                user: user_data,
+        if (user_data.permissionLevel >= 5) {
+            DB.getAllUserData().then((userData) => {
+                res.render('admin', {
+                    mainStyle: 'css/main.css',
+                    style: 'css/admin.css',
+                    script: 'script/admin.js',
+                    userData: userData,
+                });
             });
-        });
+        } else {
+            DB.getUserBlogPosts(req.user).then((blogs) => {
+                res.render('dashboard', {
+                    title: `${user_data.firstName}'s Dashboard`,
+                    mainStyle: 'css/main.css',
+                    style: 'css/dashboard.css',
+                    script: 'script/dashboard.js',
+                    blogs: blogs,
+                    user: user_data,
+                });
+            });
+        }
     });
 });
 
@@ -62,7 +78,7 @@ router.get('/dashboard', authenticationMiddleware(), (req, res, next) => {
 router.get('/login', (req, res, next) => {
     res.render('login', {
         title: 'Login',
-        style: 'main.css',
+        mainStyle: 'css/main.css',
     });
 });
 
@@ -79,7 +95,7 @@ router.post('/register', (req, res, next) => {
 
     res.render('login', {
        title: 'Registration Complete! Please login below.',
-       style: 'main.css', 
+       mainStyle: 'css/main.css', 
     });
 });
 
@@ -97,7 +113,7 @@ router.post('/login', (req, res, next) => {
         } else {
             res.render('login', {
             title: 'Incorrect username or password! Try again.',
-            style: 'main.css', 
+            mainStyle: 'css/main.css', 
             });
         }
     });
@@ -108,7 +124,22 @@ router.post('/blogPost', (req, res, next) => {
         DB.createBlogPost(user_data, req.body).then(() => {
             res.render('dashboard', {
                 title: 'Blog Posted!',
-                style: 'main.css',
+                mainStyle: 'css/main.css',
+            });
+        });
+    });
+});
+
+router.get('/dashboard/:username', (req, res, next) => {
+    DB.getUserData(req.params.username).then((user_data) => {
+        DB.getUserBlogPosts(user_data.id).then((blogs) => {
+            res.render('adminControl', {
+                title: 'Admin User Control',
+                mainStyle: '../css/main.css',
+                style: '../css/admin.css',
+                script: '../script/admin.js',
+                blogs: blogs,
+                user_data: user_data,
             });
         });
     });

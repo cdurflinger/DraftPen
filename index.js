@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( { extended: false } ));
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname + '/public')));
 
 app.use(session({
     store: new SQLiteStore,
@@ -33,7 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-  app.use('/', routes);
+app.use('/', routes);
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}!`);

@@ -62,14 +62,25 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         getUserData: (username, user_id) => {
             return new Promise((resolve, reject) => {
                 let sqlParam = username || user_id;
-                let sql = username ? `SELECT id id, username username, email email,first_name firstName, last_name lastName FROM Users WHERE username = ?` : `SELECT id id, username username, email email,first_name firstName, last_name lastName FROM Users WHERE id = ?`;
-                // let sql = `SELECT id id, email email,first_name firstName, last_name lastName FROM Users WHERE username = ?`;
+                let sql = username ? `SELECT id id, username username, permission_level permissionLevel, email email, first_name firstName, last_name lastName FROM Users WHERE username = ?` : `SELECT id id, username username, permission_level permissionLevel, email email, first_name firstName, last_name lastName FROM Users WHERE id = ?`;
                 DB.get(sql, [sqlParam], (sqlErr, row) => {
                     if(sqlErr){
                         reject(sqlErr);
                         return;
                     }
                     resolve(row);
+                });
+            });
+        },
+        getAllUserData: () => {
+            return new Promise((resolve, reject) => {
+                let sql = `SELECT id id, username username, permission_level permissionLevel, email email, first_name firstName, last_name lastName FROM Users ORDER BY id`;
+                DB.all(sql, [], (sqlErr, rows) => {
+                    if (sqlErr) {
+                        reject(sqlErr);
+                        return;
+                    }
+                    resolve(rows);
                 });
             });
         },
@@ -137,6 +148,18 @@ function DatabaseAPI(DB_PATH, dbSchema) {
             return new Promise((resolve, reject) => {
                 let sql = `SELECT id id, blog blog, title title, publish_date publishDate FROM Blogs WHERE user_id = ? ORDER BY id`;
                 DB.all(sql, [user], (sqlErr, rows) => {
+                    if (sqlErr) {
+                        reject(sqlErr);
+                        return;
+                    }
+                    resolve(rows);
+                });
+            });
+        },
+        getUserPermissions: (user) => {
+            return new Promise((resolve, reject) => {
+                let sql = `SELECT permission_level permission_level FROM Users WHERE id = ?`;
+                DB.get(sql, [user], (sqlErr, rows) => {
                     if (sqlErr) {
                         reject(sqlErr);
                         return;

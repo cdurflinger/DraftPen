@@ -1,0 +1,24 @@
+
+{{> sessionHeader}}
+{{title}}
+
+<div id="userDataContainer">
+    <h1>{{user_data.firstName}} {{user_data.lastName}}</h1>
+    <p>{{user_data.username}}</p>
+    <p>{{user_data.id}}</p>
+    <p>{{user_data.permissionLevel}}</p>
+    <p>{{user_data.email}}</p>
+</div>
+<div id="userBlogContainer">
+    {{#each blogs}}
+        <div class="blogContainer" id={{id}}>
+            <button class="editPostButton">Edit Blog Post</button>
+            <button class="deletePostButton">Delete Blog Post</button>
+            <p>Title: <span id=t{{id}}>{{title}}</span></p>
+            <p>Published on: {{publishDate}}</p>
+            <p>Blog Post: <span id= b{{id}}>{{blog}}</span></p>
+        </div>
+    {{/each}}
+</div>
+
+{{> sessionFooter}}
