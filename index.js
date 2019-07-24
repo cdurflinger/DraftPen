@@ -3,7 +3,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const hbs = require('express-handlebars');
-const routes = require('./routes/index');
+const index = require('./routes/index');
+const user = require('./routes/user');
 
 //Authentication
 const session = require('express-session');
@@ -33,7 +34,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes);
+app.use('/', index);
+app.use('/dashboard', user);
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}!`);

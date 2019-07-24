@@ -12,7 +12,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
             if(err) {
                 console.log(err);
             } else {
-                console.log('Foreign Key Enforcement is on.');
+                // console.log('Foreign Key Enforcement is on.');
             }
         });
     });
