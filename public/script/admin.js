@@ -17,7 +17,7 @@ const DOM = {
 }
 
 for(let i = 0; i < DOM.anchorTags.length; i++) {
-    DOM.anchorTags[i].setAttribute('href', 'dashboard/' + DOM.anchorTags[i].parentNode.getAttribute('id'));
+    DOM.anchorTags[i].setAttribute('href', 'admin/' + DOM.anchorTags[i].parentNode.getAttribute('id'));
 }
 
 
@@ -96,7 +96,7 @@ const modifyBlogPost = (e) => {
 
             };
         };
-        xmlhttp.open('POST', page, true);
+        xmlhttp.open('PUT', page, true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json');
         xmlhttp.send(JSON.stringify(data));
         DOM.editPostContainer.classList.toggle('editPostContainerHide');
@@ -105,7 +105,7 @@ const modifyBlogPost = (e) => {
 
 const updateUserData = () => {
     const id = DOM.userId.textContent;
-    const page = '/dashboard/user/modify/' + id;
+    const page = '/admin/user/modify/' + id;
     let data = {
         id: id,
         firstName: DOM.firstName.value,
@@ -121,7 +121,7 @@ const updateUserData = () => {
 
             };
         };
-        xmlhttp.open('POST', page, true);
+        xmlhttp.open('PUT', page, true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json');
         xmlhttp.send(JSON.stringify(data));
     };
@@ -129,7 +129,7 @@ const updateUserData = () => {
 
 const deleteUser = () => {
     const id = DOM.userId.textContent;
-    const page = '/dashboard/user/delete/' + id;
+    const page = '/admin/user/delete/' + id;
     const xmlhttp = new XMLHttpRequest();
     if(confirm("Are you sure that you want to delete this users profile? This cannot be reversed!!!") === true) {
         if(confirm("This is you last chance! Are you sure that you want to delete this users profile?") === true) {

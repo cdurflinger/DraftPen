@@ -41,6 +41,21 @@ function DatabaseAPI(DB_PATH, dbSchema) {
                 });
             });
         },
+        verifyUsername: (username) => {
+            return new Promise((resolve, reject) => {
+                let sql = `SELECT username username FROM Users WHERE username = ?`;
+                let userVerified = false;
+                DB.get(sql, [username], (sqlErr, row) => {
+                    if(row === undefined) {
+                        userVerified = false;
+                        resolve(userVerified);
+                    } else {
+                        userVerified = true;
+                        resolve(userVerified);
+                    }
+                })
+            });
+        },
         verifyUserPassword: (username, password) => {
             return new Promise((resolve, reject) => {
                 let sql = `SELECT password password FROM Users WHERE username = ?`;

@@ -1,11 +1,11 @@
 
-{{> sessionHeader}}
+{{> adminHeader}}
 
 <h1>Welcome admin!</h1>
 <br>
 <br>
 <div class="formContainer">
-    <form action="/register" method="post">
+    <form action="/user/register" method="post">
         <label for="userName">Username</label>
             <input type="text" name="username" id="userName" placeholder="Username">
         <label for="email">Email</label>
@@ -38,4 +38,4 @@
     {{/each}}
 </div>
 
-{{> sessionFooter}}
+{{> adminFooter}}

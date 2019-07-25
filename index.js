@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const hbs = require('express-handlebars');
 const index = require('./routes/index');
+const dashboard = require('./routes/dashboard');
 const user = require('./routes/user');
+const admin = require('./routes/admin');
 
 //Authentication
 const session = require('express-session');
@@ -35,7 +37,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', index);
-app.use('/dashboard', user);
+app.use('/dashboard', dashboard);
+app.use('/user', user);
+app.use('/admin', admin);
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}!`);

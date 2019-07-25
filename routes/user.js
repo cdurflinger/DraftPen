@@ -3,27 +3,19 @@ const router = express.Router();
 const passport = require('passport');
 const userController = require('../controllers/user');
 
-const authenticationMiddleware = () => {
-    return (req, res, next) => {
-        // console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
-        if (req.isAuthenticated()) return next();
-        res.redirect('/login');
-    };
-};
+//login and logout requests
+router.get('/login', userController.get_user_login);
 
-router.get('/', authenticationMiddleware(), userController.get_dashboard);
+router.get('/logout', userController.get_user_logout);
 
-router.get('/:username', authenticationMiddleware(), userController.get_user_dashboard);
+router.get('/register', userController.get_user_register);
 
-router.post('/blogPost', userController.create_blog_post);
+//post requests
+router.post('/register', userController.register_new_user);
 
-router.delete('/blog/delete/:id', userController.delete_blog_post);
+router.post('/login', userController.login_user);
 
-router.post('/blog/modify/:id', userController.modify_blog_post);
-
-router.post('/user/modify/:id', userController.modify_user);
-
-router.delete('/user/delete/:id', userController.delete_user);
+//passport
 
 passport.serializeUser(function(user, done) {
     done(null, user);

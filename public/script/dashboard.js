@@ -83,7 +83,7 @@ const modifyBlogPost = (e) => {
 
             };
         };
-        xmlhttp.open('POST', page, true);
+        xmlhttp.open('PUT', page, true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json')
         xmlhttp.send(JSON.stringify(data));
         DOM.editPostContainer.classList.toggle('editPostContainerHide');

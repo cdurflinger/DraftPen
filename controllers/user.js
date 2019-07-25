@@ -3,67 +3,60 @@ const dbMeta = require('../db/dbSchema');
 const DB_PATH = './db/database.db';
 const DB = new DatabaseAPI(DB_PATH, dbMeta.dbSchema);
 
-exports.get_dashboard = (req, res, next) => {
-    DB.getUserData(null, req.user).then((user_data) => {
-        if (user_data.permissionLevel >= 5) {
-            DB.getAllUserData().then((userData) => {
-                res.render('admin', {
-                    mainStyle: 'css/main.css',
-                    style: 'css/admin.css',
-                    script: 'script/admin.js',
-                    userData: userData,
-                });
+exports.get_user_register = (req, res, next) => {
+    res.render('register', {
+       title: 'Register',
+       mainStyle: '../css/main.css', 
+    });
+};
+
+exports.register_new_user = (req, res, next) => {
+    DB.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
+        `${req.body.lastname}`);
+
+    res.render('login', {
+       title: 'Registration Complete! Please login below.',
+       mainStyle: '../css/main.css', 
+    });
+};
+
+exports.get_user_login = (req, res, next) => {
+    res.render('login', {
+        title: 'Login',
+        mainStyle: '../css/main.css',
+    });
+};
+
+exports.login_user = (req, res, next) => {
+    DB.verifyUsername(`${req.body.username}`).then((verified) => {
+        if(verified) {
+            DB.verifyUserPassword(`${req.body.username}`, `${req.body.password}`).then((login) => {
+                if(login) {
+                    DB.getUserData(req.body.username).then((user_data) => {
+                        req.login(user_data.id, (err) => {
+                            if(err) {
+                                return next(err);
+                            }
+                            return res.redirect('/');
+                        });
+                    });    
+                } else {
+                    res.render('login', {
+                    title: 'Incorrect username or password! Try again.',
+                    mainStyle: '../css/main.css', 
+                    });
+                }
             });
         } else {
-            DB.getUserBlogPosts(req.user).then((blogs) => {
-                res.render('dashboard', {
-                    title: `${user_data.firstName}'s Dashboard`,
-                    mainStyle: 'css/main.css',
-                    style: 'css/dashboard.css',
-                    script: 'script/dashboard.js',
-                    blogs: blogs,
-                    user: user_data,
-                });
+            res.render('login', {
+            title: 'Incorrect username or password! Try again.',
+            mainStyle: '../css/main.css', 
             });
         }
     });
 };
 
-exports.get_user_dashboard = (req, res, next) => {
-    DB.getUserData(req.params.username).then((user_data) => {
-        DB.getUserBlogPosts(user_data.id).then((blogs) => {
-            res.render('adminControl', {
-                title: 'Admin User Control',
-                mainStyle: '../css/main.css',
-                style: '../css/admin.css',
-                script: '../script/admin.js',
-                blogs: blogs,
-                user_data: user_data,
-            });
-        });
-    });
-};
-
-exports.create_blog_post = (req, res, next) => {
-    DB.getUserData(null, req.user).then((user_data) => {
-        DB.createBlogPost(user_data, req.body).then(() => {
-            res.redirect('/dashboard');
-        });
-    });
-};
-
-exports.delete_blog_post = (req, res, next) => {
-    DB.deleteBlogPost(req.params.id);
-};
-
-exports.modify_blog_post = (req, res, next) => {
-    DB.updateBlogPost(req.body);
-};
-
-exports.modify_user = (req, res, next) => {
-    DB.modifyUserData(req.body);
-};
-
-exports.delete_user = (req, res, next) => {
-    DB.deleteUser(req.params);
+exports.get_user_logout = (req, res, next) => {
+    req.logout();
+    res.redirect('/');
 };

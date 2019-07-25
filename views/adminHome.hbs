@@ -1,0 +1,13 @@
+
+{{> adminHeader}}
+
+<h1>{{title}}</h1>
+
+{{#each blogs}}
+<div class="blogContainer">
+    <p>Title: {{title}}</p>
+    <p>Blog Post: {{blog}}</p>
+</div>
+{{/each}}
+
+{{> adminFooter}}
