@@ -1,5 +1,7 @@
 //DOM selectors
 const DOM = {
+    userBlogContainer: document.querySelector('.userBlogContainer'),
+    createBlogButton: document.getElementById('createBlogButton'),
     editPostContainer: document.getElementById('editPostContainer'),
     editPostButtons: document.getElementsByClassName('editPostButton'),
     deletePostButtons: document.getElementsByClassName('deletePostButton'),
@@ -22,6 +24,10 @@ for(let i = 0; i < DOM.editPostButtons.length; i++) {
     });
 };
 
+DOM.createBlogButton.addEventListener('click', () => {
+    createBlogPost();
+});
+
 for(let i = 0; i < DOM.deletePostButtons.length; i++) {
     DOM.deletePostButtons[i].addEventListener('click', (e) => {
         deleteBlogPost(e);
@@ -39,16 +45,66 @@ DOM.editBlogSubmitButton.addEventListener('click', (e) => {
 const displayEditDiv = (parentId) => {
     DOM.editPostContainer.classList.toggle('editPostContainerHide');
     //fix this in the future, it remove the DOM selector from the DIV but still works on consecutive modify clicks
-    DOM.editPostContainer.setAttribute('id', parentId);
+    DOM.editPostContainer.setAttribute('id', "e" + parentId);
 }
 
-const removeElement = (id) => {
+const removeDeletedBlogDiv = (id) => {
     let element = document.getElementById(id);
     element.parentNode.removeChild(element);
 };
 
+const appendNewBlogDiv = (data) => {
+    let div = document.createElement('div');
+    let editButton = document.createElement('button');
+    let deleteButton = document.createElement('button');
+    let title = document.createElement('p');
+    let date = document.createElement('p');
+    let content = document.createElement('p');
+    let titleSpan = document.createElement('span');
+    let contentSpan = document.createElement('span');
+    div.setAttribute('id', data.id);
+    div.setAttribute('class', 'blogContainer');
+    editButton.setAttribute('class', 'editPostButton');
+    editButton.appendChild(document.createTextNode('Edit Blog Post'));
+    deleteButton.setAttribute('class', 'deletePostButton');
+    deleteButton.appendChild(document.createTextNode('Delete Blog Post'));
+    title.appendChild(document.createTextNode('Title: '));
+    date.appendChild(document.createTextNode(`Published on: ${data.date}`));
+    content.appendChild(document.createTextNode('Blog Post: '));
+    titleSpan.setAttribute('id', `t${data.id}`);
+    contentSpan.setAttribute('id', `b${data.id}`);
+    titleSpan.appendChild(document.createTextNode(`${data.title}`));
+    contentSpan.appendChild(document.createTextNode(`${data.content}`));
+    title.appendChild(titleSpan);
+    content.appendChild(contentSpan);
+    div.appendChild(editButton);
+    div.appendChild(deleteButton);
+    div.appendChild(title);
+    div.appendChild(date);
+    div.appendChild(content);
+    DOM.userBlogContainer.appendChild(div);
+};
+
 
 //Ajax functions
+
+const createBlogPost = () => {
+    const page = '/dashboard/publish';
+    const xmlhttp = new XMLHttpRequest();
+    let data = {
+        title: document.getElementById('newBlogTitle').value,
+        blogpost: document.getElementById('newBlogContent').value,
+    }
+    xmlhttp.onreadystatechange = () => {
+        if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            let json = JSON.parse(xmlhttp.responseText);
+            appendNewBlogDiv(json);
+        };
+    };
+    xmlhttp.open('POST', page, true);
+    xmlhttp.setRequestHeader('Content-Type', 'application/json');
+    xmlhttp.send(JSON.stringify(data));
+};
 
 const deleteBlogPost = (e) => {
     const target = e.target;
@@ -58,18 +114,18 @@ const deleteBlogPost = (e) => {
     if(confirm("Are you sure you want to delete this?") === true) {
         xmlhttp.onreadystatechange = () => {
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                
+
             };
         };
         xmlhttp.open('DELETE', page, true);
         xmlhttp.send();
-        removeElement(id);
+        removeDeletedBlogDiv(id);
     };
 };
 
 const modifyBlogPost = (e) => {
     const target = e.target;
-    const id = target.parentNode.getAttribute('id');
+    const id = target.parentNode.getAttribute('id').slice(1);
     const page = '/dashboard/blog/modify/' + id;
     let data = {
         id: id,
@@ -80,11 +136,14 @@ const modifyBlogPost = (e) => {
     if(confirm("Are you sure that you want to modify this blog post?") === true) {
         xmlhttp.onreadystatechange = () => {
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
+                let json = JSON.parse(xmlhttp.responseText);
+                DOM.editPostContainer.removeAttribute('id');
+                document.getElementById(`t${json.id}`).textContent = json.title;
+                document.getElementById(`b${json.id}`).textContent = json.content;
             };
         };
         xmlhttp.open('PUT', page, true);
-        xmlhttp.setRequestHeader('Content-Type', 'application/json')
+        xmlhttp.setRequestHeader('Content-Type', 'application/json');
         xmlhttp.send(JSON.stringify(data));
         DOM.editPostContainer.classList.toggle('editPostContainerHide');
     };

@@ -50,8 +50,13 @@ exports.get_user_dashboard = (req, res, next) => {
 
 exports.publish_post = (req, res, next) => {
     DB.getUserData(null, req.user).then((user_data) => {
-        DB.createBlogPost(user_data, req.body).then(() => {
-            res.redirect('/dashboard');
+        DB.createBlogPost(user_data, req.body).then((data) => {
+            res.json({
+                title: req.body.title,
+                content: req.body.blogpost,
+                id: data.id,
+                date: data.date,
+            });
         });
     });
 };
@@ -61,7 +66,9 @@ exports.delete_blog_post = (req, res, next) => {
 };
 
 exports.modify_blog_post = (req, res, next) => {
-    DB.updateBlogPost(req.body);
+    DB.updateBlogPost(req.body).then(() => {
+        res.json(req.body);
+    });
 };
 
 exports.modify_user = (req, res, next) => {

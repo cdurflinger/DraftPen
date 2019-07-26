@@ -30,24 +30,7 @@ h2 {
           align-items: center;
 }
 
-.newBlog form {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.newBlog form input[type="text"] {
+.newBlog input[type="text"] {
   width: 25%;
   height: 25px;
   border: .5px solid lightgrey;
@@ -55,14 +38,14 @@ h2 {
   margin-bottom: 5px;
 }
 
-.newBlog form textarea {
+.newBlog textarea {
   width: 50%;
   height: 100px;
   border: .5px solid lightgrey;
   padding: 3px;
 }
 
-.newBlog form button {
+.newBlog button {
   margin-top: 5px;
   margin-bottom: 5px;
   width: 20%;

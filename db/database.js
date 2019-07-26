@@ -144,14 +144,17 @@ function DatabaseAPI(DB_PATH, dbSchema) {
                 const DAY = DATE.getDate();
                 const YEAR = DATE.getFullYear();
                 const NEW_DATE = `${MONTH}/${DAY}/${YEAR}`;
-                DB.run(sql, [user.id, contents.blogpost, contents.title, NEW_DATE], (sqlErr) => {
-                    // console.log(user.id, contents.blogpost, contents.title, newDate);
-                    if (sqlErr) {
-                        reject(sqlErr);
-                        return;
-                    }
-                    resolve();
-                });
+                //have to use regular function expression here because arrow function does not bind to 'this'
+                DB.run(sql, [user.id, contents.blogpost, contents.title, NEW_DATE], function (sqlErr) {
+                        if(sqlErr) {
+                            reject(sqlErr);
+                            return;
+                        }
+                        resolve({
+                            id: this.lastID,
+                            date: NEW_DATE,
+                        });
+                    });
             });
         },
         deleteBlogPost: (user) => {

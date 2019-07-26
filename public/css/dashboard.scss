@@ -15,30 +15,23 @@ h2 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        input[type="text"] {
-            width: 25%;
-            height: 25px;
-            border: .5px solid lightgrey;
-            padding: 3px;
-            margin-bottom: 5px;
-        }
-        textarea {
-            width: 50%;
-            height: 100px;
-            border: .5px solid lightgrey;
-            padding: 3px;
-        }
-        button {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            width: 20%;
-        }
+    input[type="text"] {
+        width: 25%;
+        height: 25px;
+        border: .5px solid lightgrey;
+        padding: 3px;
+        margin-bottom: 5px;
+    }
+    textarea {
+        width: 50%;
+        height: 100px;
+        border: .5px solid lightgrey;
+        padding: 3px;
+    }
+    button {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 20%;
     }
 }
 .blogContainer {
