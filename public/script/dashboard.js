@@ -53,17 +53,23 @@ const removeDeletedBlogDiv = (id) => {
     element.parentNode.removeChild(element);
 };
 
+//helper function
+
+const createDomElement = (element) => {
+    return document.createElement(element);
+}
+
 const appendNewBlogDiv = (data) => {
-    let div = document.createElement('div');
-    let editButton = document.createElement('button');
-    let deleteButton = document.createElement('button');
-    let title = document.createElement('p');
-    let date = document.createElement('p');
-    let content = document.createElement('p');
-    let titleSpan = document.createElement('span');
-    let contentSpan = document.createElement('span');
-    div.setAttribute('id', data.id);
+    let div = createDomElement('div');
+    let editButton = createDomElement('button');
+    let deleteButton = createDomElement('button');
+    let title = createDomElement('p');
+    let date = createDomElement('p');
+    let content = createDomElement('p');
+    let titleSpan = createDomElement('span');
+    let contentSpan = createDomElement('span');
     div.setAttribute('class', 'blogContainer');
+    div.setAttribute('id', data.id);
     editButton.setAttribute('class', 'editPostButton');
     editButton.appendChild(document.createTextNode('Edit Blog Post'));
     deleteButton.setAttribute('class', 'deletePostButton');
@@ -82,6 +88,12 @@ const appendNewBlogDiv = (data) => {
     div.appendChild(title);
     div.appendChild(date);
     div.appendChild(content);
+    editButton.addEventListener('click', (e) => {
+        modifyBlogPost(e);
+    });
+    deleteButton.addEventListener('click', (e) => {
+        deleteBlogPost(e);
+    });
     DOM.userBlogContainer.appendChild(div);
 };
 
@@ -99,6 +111,8 @@ const createBlogPost = () => {
         if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             let json = JSON.parse(xmlhttp.responseText);
             appendNewBlogDiv(json);
+            document.getElementById('newBlogTitle').value = "";
+            document.getElementById('newBlogContent').value = "";
         };
     };
     xmlhttp.open('POST', page, true);

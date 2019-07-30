@@ -4,7 +4,11 @@
         <li><a href="/">Home</a></li>
     </ul>
 </nav>
-
+<div>
+    {{#each errors}}
+        <p>{{msg}}</p>
+    {{/each}}
+</div>
 <div class="formContainer">
     <h1>{{title}}</h1>
     <form action="/user/login" method="post">
