@@ -1,3 +1,5 @@
+const { buildSanitizeFunction } = require('express-validator');
+const sanitize = buildSanitizeFunction(['body']);
 const { DatabaseAPI } = require('../db/database');
 const dbMeta = require('../db/dbSchema');
 const DB_PATH = './db/database.db';
@@ -48,7 +50,9 @@ exports.get_user_dashboard = (req, res, next) => {
     });
 };
 
-exports.publish_post = (req, res, next) => {
+exports.publish_post = async (req, res, next) => {
+    await sanitize('*').escape().trim().run(req);
+
     DB.getUserData(null, req.user).then((user_data) => {
         DB.createBlogPost(user_data, req.body).then((data) => {
             res.json({
@@ -65,7 +69,9 @@ exports.delete_blog_post = (req, res, next) => {
     DB.deleteBlogPost(req.params.id);
 };
 
-exports.modify_blog_post = (req, res, next) => {
+exports.modify_blog_post = async (req, res, next) => {
+    await sanitize('*').escape().trim().run(req);
+
     DB.updateBlogPost(req.body).then(() => {
         res.json(req.body);
     });

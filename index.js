@@ -40,6 +40,9 @@ app.use('/', index);
 app.use('/dashboard', dashboard);
 app.use('/user', user);
 app.use('/admin', admin);
+app.use((req, res, next) => {
+  res.status(404).render('404');
+});
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}!`);

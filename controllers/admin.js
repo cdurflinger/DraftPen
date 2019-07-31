@@ -1,3 +1,5 @@
+const { buildSanitizeFunction } = require('express-validator');
+const sanitize = buildSanitizeFunction(['body']);
 const { DatabaseAPI } = require('../db/database');
 const dbMeta = require('../db/dbSchema');
 const DB_PATH = './db/database.db';
@@ -40,6 +42,9 @@ exports.get_user = (req, res, next) => {
                 res.redirect('/dashboard');
             }
         })
+    .catch(() => {
+        res.redirect('/admin');
+    });
     });
 };
 
@@ -47,11 +52,14 @@ exports.delete_blog_post = (req, res, next) => {
     DB.deleteBlogPost(req.params.id);
 };
 
-exports.modify_blog_post = (req, res, next) => {
+exports.modify_blog_post = async (req, res, next) => {
+    await sanitize('*').escape().trim().run(req);
+
     DB.updateBlogPost(req.body);
 };
 
-exports.modify_user = (req, res, next) => {
+exports.modify_user = async (req, res, next) => {
+    await sanitize('*').escape().trim().run(req);
     DB.modifyUserData(req.body);
 };
 
