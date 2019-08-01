@@ -1,16 +1,21 @@
+@import './variables.scss';
+
 h1 {
     text-align: center;
 }
 h2 {
     text-align: center;
 }
-.userDashboardInformation {
-    text-align: center;
+.block--container {
+    width: 100%;
+    box-sizing: border-box;
+}
+.user__dashboard__information {
     h3 {
         text-decoration: underline;
     }
 }
-.newBlog {
+.new__blog__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,12 +39,12 @@ h2 {
         width: 20%;
     }
 }
-.blogContainer {
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 60%;
-    padding: 10px;
-    margin: 10px auto;
+.post__button {
+    height: 35px;
+    width: 20%;
+    background-color: $primaryButtonColor;
+    color: white;
+    font-size: 1.25em;
 }
 .editPostContainerShow {
     display: flex;

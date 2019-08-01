@@ -1,13 +1,14 @@
 
 {{> header}}
 
-<h1>{{title}}</h1>
-
-{{#each blogs}}
-<div class="blogContainer">
-    <p>Title: {{title}}</p>
-    <p>Blog Post: {{blog}}</p>
-</div>
-{{/each}}
+<main>
+    <h1>{{title}}</h1>
+    {{#each blogs}}
+        <article class="article__container">
+            <p class="article__title"><span class="article__label">Title: </span>{{title}}</p>
+            <p class="article__post"><span class="article__label">Blog Post: </span>{{blog}}</p>
+        </article>
+    {{/each}}
+</main>
 
 {{>footer}}
