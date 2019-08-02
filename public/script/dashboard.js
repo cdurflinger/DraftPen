@@ -1,13 +1,13 @@
 //DOM selectors
 const DOM = {
-    userBlogContainer: document.querySelector('.userBlogContainer'),
-    createBlogButton: document.getElementById('createBlogButton'),
-    editPostContainer: document.getElementById('editPostContainer'),
-    editPostButtons: document.getElementsByClassName('editPostButton'),
-    deletePostButtons: document.getElementsByClassName('deletePostButton'),
-    editBlogTitle: document.getElementById('editBlogTitle'),
-    editBlogContent: document.getElementById('editBlogContent'),
-    editBlogSubmitButton: document.getElementById('editBlogSubmitButton'),
+    userBlogContainer: document.querySelector('.user__blog__container'),
+    createBlogButton: document.getElementById('create__blog__button'),
+    editPostContainer: document.getElementById('edit__post__container'),
+    editPostButtons: document.getElementsByClassName('edit__post__button'),
+    deletePostButtons: document.getElementsByClassName('delete__post__button'),
+    editBlogTitle: document.getElementById('edit__blog__title'),
+    editBlogContent: document.getElementById('edit__blog__content'),
+    editBlogSubmitButton: document.getElementById('edit__blog__submit__button'),
 }
 
 
@@ -43,7 +43,7 @@ DOM.editBlogSubmitButton.addEventListener('click', (e) => {
 
 
 const displayEditDiv = (parentId) => {
-    DOM.editPostContainer.classList.toggle('editPostContainerHide');
+    DOM.editPostContainer.classList.toggle('edit__post__container__hide');
     //fix this in the future, it remove the DOM selector from the DIV but still works on consecutive modify clicks
     DOM.editPostContainer.setAttribute('id', "e" + parentId);
 }
@@ -59,8 +59,8 @@ const createDomElement = (element) => {
     return document.createElement(element);
 }
 
-const appendNewBlogDiv = (data) => {
-    let div = createDomElement('div');
+const appendNewBlogArticle = (data) => {
+    let article = createDomElement('article');
     let editButton = createDomElement('button');
     let deleteButton = createDomElement('button');
     let title = createDomElement('p');
@@ -68,33 +68,36 @@ const appendNewBlogDiv = (data) => {
     let content = createDomElement('p');
     let titleSpan = createDomElement('span');
     let contentSpan = createDomElement('span');
-    div.setAttribute('class', 'blogContainer');
-    div.setAttribute('id', data.id);
-    editButton.setAttribute('class', 'editPostButton');
+    article.setAttribute('class', 'article__container');
+    article.setAttribute('id', data.id);
+    editButton.setAttribute('class', 'post__button');
     editButton.appendChild(document.createTextNode('Edit Blog Post'));
-    deleteButton.setAttribute('class', 'deletePostButton');
-    deleteButton.appendChild(document.createTextNode('Delete Blog Post'));
-    title.appendChild(document.createTextNode('Title: '));
-    date.appendChild(document.createTextNode(`Published on: ${data.date}`));
-    content.appendChild(document.createTextNode('Blog Post: '));
-    titleSpan.setAttribute('id', `t${data.id}`);
-    contentSpan.setAttribute('id', `b${data.id}`);
-    titleSpan.appendChild(document.createTextNode(`${data.title}`));
-    contentSpan.appendChild(document.createTextNode(`${data.content}`));
-    title.appendChild(titleSpan);
-    content.appendChild(contentSpan);
-    div.appendChild(editButton);
-    div.appendChild(deleteButton);
-    div.appendChild(title);
-    div.appendChild(date);
-    div.appendChild(content);
     editButton.addEventListener('click', (e) => {
-        modifyBlogPost(e);
-    });
+            let parentId = e.target.parentNode.getAttribute('id');
+            DOM.editBlogTitle.value = document.getElementById(`t${parentId}`).textContent;
+            DOM.editBlogContent.textContent = document.getElementById(`b${parentId}`).textContent;
+            displayEditDiv(parentId);
+        });
+    deleteButton.setAttribute('class', 'post__button');
+    deleteButton.appendChild(document.createTextNode('Delete Blog Post'));
     deleteButton.addEventListener('click', (e) => {
         deleteBlogPost(e);
     });
-    DOM.userBlogContainer.appendChild(div);
+    title.appendChild(document.createTextNode('Title: '));
+    titleSpan.setAttribute('id', `t${data.id}`);
+    titleSpan.appendChild(document.createTextNode(`${data.title}`));
+    title.appendChild(titleSpan);
+    date.appendChild(document.createTextNode(`Published on: ${data.date}`));
+    content.appendChild(document.createTextNode('Blog Post: '));
+    contentSpan.setAttribute('id', `b${data.id}`);
+    contentSpan.appendChild(document.createTextNode(`${data.content}`));
+    content.appendChild(contentSpan);
+    article.appendChild(editButton);
+    article.appendChild(deleteButton);
+    article.appendChild(title);
+    article.appendChild(date);
+    article.appendChild(content);
+    DOM.userBlogContainer.appendChild(article);
 };
 
 
@@ -104,15 +107,15 @@ const createBlogPost = () => {
     const page = '/dashboard/publish';
     const xmlhttp = new XMLHttpRequest();
     let data = {
-        title: document.getElementById('newBlogTitle').value,
-        blogpost: document.getElementById('newBlogContent').value,
+        title: document.getElementById('new__blog__title').value,
+        blogpost: document.getElementById('new__blog__content').value,
     }
     xmlhttp.onreadystatechange = () => {
         if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             let json = JSON.parse(xmlhttp.responseText);
-            appendNewBlogDiv(json);
-            document.getElementById('newBlogTitle').value = "";
-            document.getElementById('newBlogContent').value = "";
+            appendNewBlogArticle(json);
+            document.getElementById('new__blog__title').value = "";
+            document.getElementById('new__blog__content').value = "";
         };
     };
     xmlhttp.open('POST', page, true);
@@ -159,6 +162,6 @@ const modifyBlogPost = (e) => {
         xmlhttp.open('PUT', page, true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json');
         xmlhttp.send(JSON.stringify(data));
-        DOM.editPostContainer.classList.toggle('editPostContainerHide');
+        DOM.editPostContainer.classList.toggle('edit__post__container__hide');
     };
 }; 

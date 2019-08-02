@@ -14,22 +14,22 @@
     <hr>
     <div class="new__blog__container">
         <h3>Create new Blog</h3>
-        <input type="text" id="newBlogTitle" name="title" placeholder="Blog Title">
-        <textarea id="newBlogContent" name="blogpost" placeholder="Create your blog post here..."></textarea>
-        <button id="createBlogButton">Create Post</button>
+        <input type="text" id="new__blog__title" name="title" placeholder="Blog Title">
+        <textarea id="new__blog__content" name="blogpost" placeholder="Create your blog post here..."></textarea>
+        <button id="create__blog__button">Create Post</button>
     </div>
     <hr>
     <h2>Your blog posts</h2>
-    <div id="editPostContainer" class="editPostContainerShow editPostContainerHide">
-        <input type="text" id="editBlogTitle">
-        <textarea id="editBlogContent"></textarea>
-        <button id="editBlogSubmitButton">Modify Blog Post</button>
+    <div id="edit__post__container" class="edit__post__container__show edit__post__container__hide">
+        <input type="text" id="edit__blog__title">
+        <textarea id="edit__blog__content"></textarea>
+        <button id="edit__blog__submit__button">Modify Blog Post</button>
     </div>
-    <div class="userBlogContainer">
+    <div class="user__blog__container">
     {{#each blogs}}
     <article class="article__container" id={{id}}>
-        <button class="post__button editPostButton">Edit Blog Post</button>
-        <button class="post__button deletePostButton">Delete Blog Post</button>
+        <button class="post__button edit__post__button">Edit Blog Post</button>
+        <button class="post__button delete__post__button">Delete Blog Post</button>
         <p>Title: <span id=t{{id}}>{{title}}</span></p>
         <p>Published on: {{publishDate}}</p>
         <p>Blog Post: <span id= b{{id}}>{{blog}}</span></p>
@@ -37,4 +37,5 @@
     {{/each}}
     </div>
 </div>
+
 {{> adminFooter}}

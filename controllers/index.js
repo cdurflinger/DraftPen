@@ -14,7 +14,6 @@ exports.get_home = (req, res, next) => {
                         title: 'The latest blog posts!',
                         mainStyle: 'css/main.css',
                         style: 'css/home.css',
-                        script: 'script/main.js',
                         blogs: blogs,
                     });
                 } else {
@@ -22,7 +21,6 @@ exports.get_home = (req, res, next) => {
                         title: 'The latest blog posts!',
                         mainStyle: 'css/main.css',
                         style: 'css/home.css',
-                        script: 'script/main.js',
                         blogs: blogs,
                     });  
                 }
@@ -32,7 +30,6 @@ exports.get_home = (req, res, next) => {
                 title: 'The latest blog posts!',
                 mainStyle: 'css/main.css',
                 style: 'css/home.css',
-                script: 'script/main.js',
                 blogs: blogs,
             });
         }

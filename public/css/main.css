@@ -49,6 +49,7 @@ nav li a {
 
 main {
   width: 100%;
+  padding-bottom: 5vh;
 }
 
 footer {
@@ -58,6 +59,7 @@ footer {
   display: flex;
   height: 5vh;
   background-color: #0874C6;
+  position: fixed;
   bottom: 0;
 }
 
@@ -80,16 +82,27 @@ footer li a {
   color: white;
 }
 
-.formContainer {
+.block--container {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-bottom: 5vh;
+}
+
+.form__container {
   width: 100%;
 }
 
-.formContainer h1 {
+.form__container h1 {
   font-size: 3.5em;
   text-align: center;
 }
 
-.formContainer form {
+.form__container p {
+  font-size: 1.5em;
+}
+
+.form__container form {
   margin-top: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -103,13 +116,19 @@ footer li a {
           align-items: center;
 }
 
-.formContainer form input {
+.form__container form input {
   width: 50%;
+  height: 35px;
+  font-size: 1.25em;
 }
 
-.formContainer form button {
+.form__container form button {
   margin-top: 1em;
   width: 30%;
+  height: 35px;
+  color: white;
+  background-color: #065490;
+  font-size: 1.35em;
 }
 
 .article__container {
@@ -128,5 +147,9 @@ footer li a {
 
 .article__post {
   font-size: 1.75em;
+}
+
+#login__container {
+  height: 90vh;
 }
 /*# sourceMappingURL=main.css.map */

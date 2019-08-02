@@ -9,7 +9,7 @@
         <p>{{msg}}</p>
     {{/each}}
 </div>
-<div class="formContainer">
+<div class="form__container">
     <h1>{{title}}</h1>
     <form action="/user/register" method="post">
         <label for="userName">Username</label>
@@ -26,8 +26,8 @@
             <input type="password" name="reEnterPassword" placeholder="Re-Enter Password">
         <button type="submit">Submit</button>
     </form>
+    <p>Already a user? <a href="login">Login here</a></p>
 </div>
-<p>Already a user? <a href="login">Login here</a></p>
 
 <footer>
         <ul>

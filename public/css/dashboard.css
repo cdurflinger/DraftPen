@@ -6,12 +6,6 @@ h2 {
   text-align: center;
 }
 
-.block--container {
-  width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
 .user__dashboard__information h3 {
   text-decoration: underline;
 }
@@ -61,7 +55,7 @@ h2 {
   font-size: 1.25em;
 }
 
-.editPostContainerShow {
+.edit__post__container__show {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -79,7 +73,7 @@ h2 {
   height: 300px;
 }
 
-.editPostContainerShow input[type="text"] {
+.edit__post__container__show input[type="text"] {
   width: 25%;
   height: 25px;
   border: .5px solid lightgrey;
@@ -87,20 +81,20 @@ h2 {
   margin-bottom: 5px;
 }
 
-.editPostContainerShow textarea {
+.edit__post__container__show textarea {
   width: 50%;
   height: 100px;
   border: .5px solid lightgrey;
   padding: 3px;
 }
 
-.editPostContainerShow button {
+.edit__post__container__show button {
   margin-top: 5px;
   margin-bottom: 5px;
   width: 20%;
 }
 
-.editPostContainerHide {
+.edit__post__container__hide {
   display: none;
   width: 100%;
   height: 300px;

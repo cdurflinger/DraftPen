@@ -1,14 +1,15 @@
-#userDashboardContainer {
-    max-height: 200px;
-    max-width: 400px;
+@import './variables.scss';
+
+#user__dashboard__container {
+    height: 40%;
+    width: 100%;
     overflow-y: scroll;
     background-color: lightgray;
 }
-#userDataContainer {
+#user__data__container {
     border: .5px solid black;
 }
-
-.editPostContainerShow {
+.edit__post__container__show {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,9 +35,39 @@
         width: 20%;
     }
 }
-.editPostContainerHide {
+.edit__post__container__hide {
     display: none;
     width: 100%;
     height: 300px;
     
+}
+.post__button {
+    height: 35px;
+    width: 20%;
+    background-color: $primaryButtonColor;
+    color: white;
+    font-size: 1.25em;
+}
+#delete__user__button {
+    height: 35px;
+    width: 20%;
+    background-color: red;
+    color: white;
+    font-size: 1.25em;
+}
+#update__user__button, #user__register__form__button {
+    height: 35px;
+    width: 20%;
+    background-color: $primaryButtonColor;
+    color: white;
+    font-size: 1.25em;
+}
+#user__data__container {
+        font-size: 1.35em;
+        input {
+            font-size: 1.5em;
+        }
+}
+.hide {
+    display: none;
 }

@@ -1,41 +1,39 @@
 
 {{> adminHeader}}
-{{title}}
-<br>
-<br>
-<div id="userDataContainer">
-    <p>First Name: <input type="text" id="firstName" value={{user_data.firstName}}></p>
-    <p>Last Name: <input type="text" id="lastName" value={{user_data.lastName}}></p>
-    <p>Username: <input type="text" id="username" value={{user_data.username}}></p>
-    <p>User Id: <span id="userId">{{user_data.id}}</span></p>
-    <p>Permission Level Guide</p>
-    <p>1(user) 5(admin)</p>
-    <p>User Permission Level: <input type="text" id="permissionLevel" value={{user_data.permissionLevel}}></p>
-    <p>User Email: <input type="text" id="userEmail" value={{user_data.email}}></p>
-    <button id="updateUserButton">Update User Information</button>
-</div>
-<br>
-<br>
-<div>
-    <button id="deleteUserButton">Delete This User</button>
-</div>
-<br>
-<br>
-<div id="editPostContainer" class="editPostContainerShow editPostContainerHide">
-    <input type="text" id="editBlogTitle">
-    <textarea id="editBlogContent"></textarea>
-    <button id="editBlogSubmitButton">Modify Blog Post</button>
-</div>
-<div id="userBlogContainer">
-    {{#each blogs}}
-        <div class="blogContainer" id={{id}}>
-            <button class="editPostButton">Edit Blog Post</button>
-            <button class="deletePostButton">Delete Blog Post</button>
-            <p>Title: <span id=t{{id}}>{{title}}</span></p>
-            <p>Published on: {{publishDate}}</p>
-            <p>Blog Post: <span id= b{{id}}>{{blog}}</span></p>
-        </div>
-    {{/each}}
-</div>
 
+<div class="block--container">
+    {{title}}
+    <div id="user__data__container">
+        <p>User Id: <span id="user__id">{{user_data.id}}</span></p>
+        <p>Permission Level Guide</p>
+        <p>1(user) 3(moderator) 5(admin)</p>
+        <p>First Name: <input type="text" id="first__name" value={{user_data.firstName}}></p>
+        <p>Last Name: <input type="text" id="last__name" value={{user_data.lastName}}></p>
+        <p>Username: <input type="text" id="username" value={{user_data.username}}></p>
+        <p>User Permission Level: <input type="text" id="permission__level" value={{user_data.permissionLevel}}></p>
+        <p>User Email: <input type="text" id="user__email" value={{user_data.email}}></p>
+        <button id="update__user__button">Update User Information</button>
+    </div>
+    <br>
+    <div>
+        <button id="delete__user__button">Delete This User</button>
+    </div>
+    <br>
+    <div id="edit__post__container" class="edit__post__container__show edit__post__container__hide">
+        <input type="text" id="edit__blog__title">
+        <textarea id="edit__blog__content"></textarea>
+        <button id="edit__blog__submit__button">Modify Blog Post</button>
+    </div>
+    <div id="user__blog__container">
+        {{#each blogs}}
+            <article class="article__container" id={{id}}>
+                <button class="post__button edit__post__button">Edit Blog Post</button>
+                <button class="post__button delete__post__button">Delete Blog Post</button>
+                <p>Title: <span id=t{{id}}>{{title}}</span></p>
+                <p>Published on: {{publishDate}}</p>
+                <p>Blog Post: <span id= b{{id}}>{{blog}}</span></p>
+            </article>
+        {{/each}}
+    </div>
+</div>
 {{> adminFooter}}

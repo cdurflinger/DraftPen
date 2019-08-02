@@ -1,19 +1,20 @@
 const DOM = {
-    anchorTags: document.getElementsByClassName('userProfileLinks'),
-    deletePostButtons: document.getElementsByClassName('deletePostButton'),
-    editPostContainer: document.getElementById('editPostContainer'),
-    editPostButtons: document.getElementsByClassName('editPostButton'),
-    editBlogTitle: document.getElementById('editBlogTitle'),
-    editBlogContent: document.getElementById('editBlogContent'),
-    editBlogSubmitButton: document.getElementById('editBlogSubmitButton'),
-    firstName: document.getElementById('firstName'),
-    lastName: document.getElementById('lastName'),
+    anchorTags: document.getElementsByClassName('user__profile__links'),
+    deletePostButtons: document.getElementsByClassName('delete__post__button'),
+    editPostContainer: document.getElementById('edit__post__container'),
+    editPostButtons: document.getElementsByClassName('edit__post__button'),
+    editBlogTitle: document.getElementById('edit__blog__title'),
+    editBlogContent: document.getElementById('edit__blog__content'),
+    editBlogSubmitButton: document.getElementById('edit__blog__submit__button'),
+    firstName: document.getElementById('first__name'),
+    lastName: document.getElementById('last__name'),
     username: document.getElementById('username'),
-    userId: document.getElementById('userId'),
-    permissionLevel: document.getElementById('permissionLevel'),
-    userEmail: document.getElementById('userEmail'),
-    updateUserButton: document.getElementById('updateUserButton'),
-    deleteUserButton: document.getElementById('deleteUserButton'),
+    userId: document.getElementById('user__id'),
+    permissionLevel: document.getElementById('permission__level'),
+    userEmail: document.getElementById('user__email'),
+    updateUserButton: document.getElementById('update__user__button'),
+    deleteUserButton: document.getElementById('delete__user__button'),
+    userRegisterFormDisplayButton: document.getElementById('user__register__form__button'),
 }
 
 for(let i = 0; i < DOM.anchorTags.length; i++) {
@@ -25,6 +26,10 @@ for(let i = 0; i < DOM.anchorTags.length; i++) {
 
 //adminControl Section
 
+DOM.userRegisterFormDisplayButton.addEventListener('click', () => {
+    document.getElementById('register__form').classList.toggle('hide');
+});
+
 for(let i = 0; i < DOM.editPostButtons.length; i++) {
     DOM.editPostButtons[i].addEventListener('click', (e) => {
         let parentId = e.target.parentNode.getAttribute('id');
@@ -35,7 +40,7 @@ for(let i = 0; i < DOM.editPostButtons.length; i++) {
 };
 
 const displayEditDiv = (parentId) => {
-    DOM.editPostContainer.classList.toggle('editPostContainerHide');
+    DOM.editPostContainer.classList.toggle('edit__post__container__hide');
     //fix this in the future, it remove the DOM selector from the DIV but still works on consecutive modify clicks
     DOM.editPostContainer.setAttribute('id', parentId);
 }
@@ -99,7 +104,7 @@ const modifyBlogPost = (e) => {
         xmlhttp.open('PUT', page, true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json');
         xmlhttp.send(JSON.stringify(data));
-        DOM.editPostContainer.classList.toggle('editPostContainerHide');
+        DOM.editPostContainer.classList.toggle('edit__post__container__hide');
     };
 };
 
