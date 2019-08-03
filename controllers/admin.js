@@ -31,9 +31,9 @@ exports.get_user = (req, res, next) => {
                 DB.getUserBlogPosts(user_data.id).then((blogs) => {
                     res.render('adminControl', {
                         title: 'Admin User Control',
-                        mainStyle: '../css/main.css',
-                        style: '../css/admin.css',
-                        script: '../script/admin.js',
+                        mainStyle: '/css/main.css',
+                        style: '/css/admin.css',
+                        script: '/script/admin.js',
                         blogs: blogs,
                         user_data: user_data,
                     });

@@ -26,9 +26,25 @@ for(let i = 0; i < DOM.anchorTags.length; i++) {
 
 //adminControl Section
 
-DOM.userRegisterFormDisplayButton.addEventListener('click', () => {
-    document.getElementById('register__form').classList.toggle('hide');
-});
+//This if/else is only here so a seperate JS file is not needed for the admin/admin control page. If
+//admin page, only add event listener to user registration form button, else add other event listeners.
+if(DOM.userRegisterFormDisplayButton) {
+    DOM.userRegisterFormDisplayButton.addEventListener('click', () => {
+        document.getElementById('register__form').classList.toggle('hide');
+    });
+} else {
+    DOM.editBlogSubmitButton.addEventListener('click', (e) => {
+        modifyBlogPost(e);
+    });
+    
+    DOM.updateUserButton.addEventListener('click', () => {
+        updateUserData();
+    })
+    
+    DOM.deleteUserButton.addEventListener('click', () => {
+        deleteUser();
+    });
+}
 
 for(let i = 0; i < DOM.editPostButtons.length; i++) {
     DOM.editPostButtons[i].addEventListener('click', (e) => {
@@ -55,18 +71,6 @@ for(let i = 0; i < DOM.deletePostButtons.length; i++) {
         deleteBlogPost(e);
     });
 };
-
-DOM.editBlogSubmitButton.addEventListener('click', (e) => {
-    modifyBlogPost(e);
-});
-
-DOM.updateUserButton.addEventListener('click', () => {
-    updateUserData();
-})
-
-DOM.deleteUserButton.addEventListener('click', () => {
-    deleteUser();
-});
 
 const deleteBlogPost = (e) => {
     const target = e.target;
