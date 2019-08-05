@@ -5,47 +5,41 @@ const dbMeta = require('../db/dbSchema');
 const DB_PATH = './db/database.db';
 const DB = new DatabaseAPI(DB_PATH, dbMeta.dbSchema);
 
-exports.get_admin = (req, res, next) => {
-    DB.getUserData(null, req.user).then((user_data) => {
-        DB.getUserPermissions(req.user).then((permission_level) => {
-            if(permission_level.permission_level >= 3) {
-                DB.getAllUserData().then((userData) => {
-                    res.render('admin', {
-                        mainStyle: 'css/main.css',
-                        style: 'css/admin.css',
-                        script: 'script/admin.js',
-                        userData: userData,
-                    });
-                });
-            } else {
-                res.redirect('/dashboard');
-            }
-        })
-    });
+exports.get_admin = async (req, res, next) => {
+    const userData = await DB.getUserData(null, req.user);
+    if(userData.permission_level >= 3) {
+        const allUserData = await DB.getAllUserData();
+        res.render('admin', {
+            mainStyle: 'css/main.css',
+            style: 'css/admin.css',
+            script: 'script/admin.js',
+            userData: allUserData,
+        });
+    } else {
+        res.redirect('/dashboard');
+    }
 };
 
-exports.get_user = (req, res, next) => {
-    DB.getUserData(req.params.username).then((user_data) => {
-        DB.getUserPermissions(req.user).then((permission_level) => {
-            if(permission_level.permission_level >= 3) {
-                DB.getUserBlogPosts(user_data.id).then((blogs) => {
-                    res.render('adminControl', {
-                        title: 'Admin User Control',
-                        mainStyle: '/css/main.css',
-                        style: '/css/admin.css',
-                        script: '/script/admin.js',
-                        blogs: blogs,
-                        user_data: user_data,
-                    });
-                });
-            } else {
-                res.redirect('/dashboard');
-            }
-        })
-    .catch(() => {
+exports.get_user = async (req, res, next) => {
+    try {
+        const permission_level = await DB.getUserPermissions(req.user);
+        if(permission_level.permission_level >= 3) {
+            const userData = await DB.getUserData(req.params.username);
+            const blogs = await DB.getUserBlogPosts(userData.id);
+            res.render('adminControl', {
+                title: 'Admin UserControl',
+                mainStyle: '/css/main.css',
+                style: '/css/admin.css',
+                script: '/script/admin.js',
+                blogs: blogs,
+                user_data: userData,
+            });
+        } else {
+            res.redirect('/dashboard');
+        }
+    } catch(err) {
         res.redirect('/admin');
-    });
-    });
+    }
 };
 
 exports.delete_blog_post = (req, res, next) => {

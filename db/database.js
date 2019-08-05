@@ -89,7 +89,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         getUserData: (username, user_id) => {
             return new Promise((resolve, reject) => {
                 let sqlParam = username || user_id;
-                let sql = username ? `SELECT id id, username username, permission_level permissionLevel, email email, first_name firstName, last_name lastName FROM Users WHERE username = ?` : `SELECT id id, username username, permission_level permissionLevel, email email, first_name firstName, last_name lastName FROM Users WHERE id = ?`;
+                let sql = username ? `SELECT id id, username username, permission_level permission_level, email email, first_name firstName, last_name lastName FROM Users WHERE username = ?` : `SELECT id id, username username, permission_level permission_level, email email, first_name firstName, last_name lastName FROM Users WHERE id = ?`;
                 DB.get(sql, [sqlParam], (sqlErr, row) => {
                     if(sqlErr){
                         reject(sqlErr);
@@ -101,7 +101,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
         },
         getAllUserData: () => {
             return new Promise((resolve, reject) => {
-                let sql = `SELECT id id, username username, permission_level permissionLevel, email email, first_name firstName, last_name lastName FROM Users ORDER BY id`;
+                let sql = `SELECT id id, username username, permission_level permission_level, email email, first_name firstName, last_name lastName FROM Users ORDER BY id`;
                 DB.all(sql, [], (sqlErr, rows) => {
                     if (sqlErr) {
                         reject(sqlErr);
