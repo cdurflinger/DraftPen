@@ -1,7 +1,7 @@
 const { DatabaseAPI } = require('../db/database');
 const dbMeta = require('../db/dbSchema');
-const DB_PATH = './db/database.db';
-const DB = new DatabaseAPI(DB_PATH, dbMeta.dbSchema);
+// const DB_PATH = './db/database.db';
+const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_home = async (req, res, next) => {
     const blogs = await DB.getAllBlogPosts();
@@ -12,7 +12,6 @@ exports.get_home = async (req, res, next) => {
     };
     res.render(page, {
         title: 'The latest blog posts!',
-        mainStyle: 'css/main.css',
         style: 'css/home.css',
         blogs: blogs,
     });

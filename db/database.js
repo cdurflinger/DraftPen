@@ -1,10 +1,10 @@
-function DatabaseAPI(DB_PATH, dbSchema) {
+function DatabaseAPI(dbSchema) {
     const sqlite3 = require('sqlite3').verbose();
     //modules used to hash passwords
     const BCRYPT = require('bcrypt');
     const SALT_ROUNDS = 10;
 
-    const DB = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READWRITE, (err) => {
+    const DB = new sqlite3.Database(__dirname + '/database.db', sqlite3.OPEN_READWRITE, (err) => {
         if (err) {
             return console.log(err.message);
         }

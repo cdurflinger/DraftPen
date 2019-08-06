@@ -103,7 +103,10 @@ const modifyBlogPost = (e) => {
     if(confirm("Are you sure that you want to modify this blog post?") === true) {
         xmlhttp.onreadystatechange = () => {
             if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
+                let json = JSON.parse(xmlhttp.responseText);
+                DOM.editPostContainer.removeAttribute('id');
+                document.getElementById(`t${json.id}`).textContent = json.title;
+                document.getElementById(`b${json.id}`).textContent = json.content;
             };
         };
         xmlhttp.open('PUT', page, true);

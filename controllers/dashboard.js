@@ -2,8 +2,8 @@ const { buildSanitizeFunction } = require('express-validator');
 const sanitize = buildSanitizeFunction(['body']);
 const { DatabaseAPI } = require('../db/database');
 const dbMeta = require('../db/dbSchema');
-const DB_PATH = './db/database.db';
-const DB = new DatabaseAPI(DB_PATH, dbMeta.dbSchema);
+// const DB_PATH = './db/database.db';
+const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_dashboard = async (req, res, next) => {
     const userData = await DB.getUserData(null, req.user);
@@ -12,7 +12,6 @@ exports.get_dashboard = async (req, res, next) => {
 
     res.render(page, {
         title: `${userData.firstName}'s Dashboard`,
-        mainStyle: 'css/main.css',
         style: 'css/dashboard.css',
         script: 'script/dashboard.js',
         blogs: blogs,
@@ -26,7 +25,6 @@ exports.get_user_dashboard = async (req, res, next) => {
 
     res.render('adminControl', {
         title: 'Admin User Control',
-        mainStyle: '/css/main.css',
         style: '/css/admin.css',
         blogs: blogs,
         user_data: userData,

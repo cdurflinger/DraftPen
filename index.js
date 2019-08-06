@@ -1,8 +1,28 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const port = process.env.PORT || 5000;
 const hbs = require('express-handlebars');
+
+//create database.db in db/ if not exists
+const createDbFile = (databaseFileName) => {
+  fs.open(databaseFileName, 'a', (err, fd) => {
+    if(err) {
+      fs.writeFile(databaseFileName, (err) => {
+        if(err) {
+          console.log(err);
+        }
+        console.log("The database file was created!");
+      });
+    } else {
+      console.log("The database file already exists!");
+    }
+  });
+}
+createDbFile(__dirname + '/db/database.db');
+
+//routes
 const index = require('./routes/index');
 const dashboard = require('./routes/dashboard');
 const user = require('./routes/user');
@@ -33,6 +53,7 @@ app.use(session({
     //set to true if hosted HTTPS, false otherwise
     cookie: { secure: false }
   }));
+  
 app.use(passport.initialize());
 app.use(passport.session());
 
