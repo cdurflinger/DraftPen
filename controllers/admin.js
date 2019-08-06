@@ -24,7 +24,7 @@ exports.get_user = async (req, res, next) => {
     try {
         const permission_level = await DB.getUserPermissions(req.user);
         if(permission_level.permission_level >= 3) {
-            const userData = await DB.getUserData(req.params.username);
+            const userData = await DB.getUserData(null, req.params.id);
             const blogs = await DB.getUserBlogPosts(userData.id);
             res.render('adminControl', {
                 title: 'Admin UserControl',

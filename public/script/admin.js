@@ -17,6 +17,7 @@ const DOM = {
     userRegisterFormDisplayButton: document.getElementById('user__register__form__button'),
 }
 
+//add href to user anchor tags
 for(let i = 0; i < DOM.anchorTags.length; i++) {
     DOM.anchorTags[i].setAttribute('href', 'admin/' + DOM.anchorTags[i].parentNode.getAttribute('id'));
 }

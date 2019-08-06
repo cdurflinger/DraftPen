@@ -15,7 +15,7 @@ const authenticationMiddleware = () => {
 
 router.get('/', authenticationMiddleware(), adminController.get_admin);
 
-router.get('/:username', authenticationMiddleware(), adminController.get_user);
+router.get('/:id', authenticationMiddleware(), adminController.get_user);
 
 //post routes
 router.put('/user/modify/:id', adminController.modify_user);
