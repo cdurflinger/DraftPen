@@ -150,5 +150,6 @@ const deleteUser = () => {
         };
         xmlhttp.open('DELETE', page, true);
         xmlhttp.send();
+        window.location = "/admin";
     };
 };
