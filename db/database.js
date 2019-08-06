@@ -131,7 +131,7 @@ function DatabaseAPI(DB_PATH, dbSchema) {
                         reject(sqlErr);
                         return;
                     }
-                    resolve();
+                    resolve(true);
                 });
             });
         },
