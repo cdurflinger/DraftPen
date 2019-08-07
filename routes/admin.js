@@ -18,11 +18,11 @@ router.get('/', authenticationMiddleware(), adminController.get_admin);
 router.get('/:id', authenticationMiddleware(), adminController.get_user);
 
 //post routes
-router.put('/user/modify/:id', adminController.modify_user);
+router.put('/user/:id', adminController.modify_user);
 
 //delete routes
 
-router.delete('/user/delete/:id', adminController.delete_user);
+router.delete('/user/:id', adminController.delete_user);
 
 //passport
 

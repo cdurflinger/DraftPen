@@ -76,7 +76,7 @@ for(let i = 0; i < DOM.deletePostButtons.length; i++) {
 const deleteBlogPost = (e) => {
     const target = e.target;
     const id = target.parentNode.getAttribute('id');
-    const page = '/dashboard/blog/delete/' + id;
+    const page = '/dashboard/blog/' + id;
     const xmlhttp = new XMLHttpRequest();
     if(confirm("Are you sure you want to delete this?") === true) {
         xmlhttp.onreadystatechange = () => {
@@ -93,7 +93,7 @@ const deleteBlogPost = (e) => {
 const modifyBlogPost = (e) => {
     const target = e.target;
     const id = target.parentNode.getAttribute('id');
-    const page = '/dashboard/blog/modify/' + id;
+    const page = '/dashboard/blog/' + id;
     let data = {
         id: id,
         title: DOM.editBlogTitle.value,
@@ -118,7 +118,7 @@ const modifyBlogPost = (e) => {
 
 const updateUserData = () => {
     const id = DOM.userId.textContent;
-    const page = '/admin/user/modify/' + id;
+    const page = '/admin/user/' + id;
     let data = {
         id: id,
         firstName: DOM.firstName.value,
@@ -142,7 +142,7 @@ const updateUserData = () => {
 
 const deleteUser = () => {
     const id = DOM.userId.textContent;
-    const page = '/admin/user/delete/' + id;
+    const page = '/admin/user/' + id;
     const xmlhttp = new XMLHttpRequest();
     if(confirm("Are you sure that you want to delete this users profile? This cannot be reversed!!!") === true) {
         if(confirm("This is you last chance! Are you sure that you want to delete this users profile?") === true) {

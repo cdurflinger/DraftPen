@@ -126,7 +126,7 @@ const createBlogPost = () => {
 const deleteBlogPost = (e) => {
     const target = e.target;
     const id = target.parentNode.getAttribute('id');
-    const page = '/dashboard/blog/delete/' + id;
+    const page = '/dashboard/blog/' + id;
     const xmlhttp = new XMLHttpRequest();
     if(confirm("Are you sure you want to delete this?") === true) {
         xmlhttp.onreadystatechange = () => {
@@ -143,7 +143,7 @@ const deleteBlogPost = (e) => {
 const modifyBlogPost = (e) => {
     const target = e.target;
     const id = target.parentNode.getAttribute('id').slice(1);
-    const page = '/dashboard/blog/modify/' + id;
+    const page = '/dashboard/blog/' + id;
     let data = {
         id: id,
         title: DOM.editBlogTitle.value,

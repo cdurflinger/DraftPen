@@ -21,11 +21,11 @@ router.post('/publish', dashboardController.publish_post);
 
 //put routes
 
-router.put('/blog/modify/:id', dashboardController.modify_blog_post);
+router.put('/blog/:id', dashboardController.modify_blog_post);
 
 //delete routes
 
-router.delete('/blog/delete/:id', dashboardController.delete_blog_post);
+router.delete('/blog/:id', dashboardController.delete_blog_post);
 
 //passport
 
