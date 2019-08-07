@@ -1,6 +1,5 @@
 const { DatabaseAPI } = require('../db/database');
 const dbMeta = require('../db/dbSchema');
-// const DB_PATH = './db/database.db';
 const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_home = async (req, res, next) => {

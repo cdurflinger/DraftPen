@@ -4,15 +4,14 @@ function DatabaseAPI(dbSchema) {
     const BCRYPT = require('bcrypt');
     const SALT_ROUNDS = 10;
 
-    const DB = new sqlite3.Database(__dirname + '/database.db', sqlite3.OPEN_READWRITE, (err) => {
+    const DB = new sqlite3.Database(__dirname + '/database.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
         if (err) {
             return console.log(err.message);
         }
+        
         DB.exec('PRAGMA foreign_keys = ON', (err) => {
             if(err) {
                 console.log(err);
-            } else {
-                // console.log('Foreign Key Enforcement is on.');
             }
         });
     });
@@ -22,12 +21,6 @@ function DatabaseAPI(dbSchema) {
             console.log(err);
         }
     });
-
-    // const DB_CLOSE = DB.close((err) => {
-    //     if(err) {
-    //         console.error(err.message);
-    //     }
-    // });
 
     return {
         registerUser: (username, password, email, first, last) => {

@@ -2,7 +2,6 @@ const { buildSanitizeFunction } = require('express-validator');
 const sanitize = buildSanitizeFunction(['body']);
 const { DatabaseAPI } = require('../db/database');
 const dbMeta = require('../db/dbSchema');
-// const DB_PATH = './db/database.db';
 const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_dashboard = async (req, res, next) => {

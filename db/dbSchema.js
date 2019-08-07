@@ -14,7 +14,10 @@ module.exports.dbSchema = `CREATE TABLE IF NOT EXISTS Users (
         title TEXT NOT NULL,
         publish_date DATE,
         modified_date DATE,
-            FOREIGN KEY (user_id) REFERENCES Users(id)
+        CONSTRAINT fk_Users
+            FOREIGN KEY (user_id)
+            REFERENCES Users(id)
+            ON DELETE CASCADE
     );`
 
     
