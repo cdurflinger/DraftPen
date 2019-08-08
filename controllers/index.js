@@ -1,12 +1,10 @@
 const { DatabaseAPI } = require('../db/database');
-const dbMeta = require('../db/dbSchema');
-const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_home = async (req, res, next) => {
-    const blogs = await DB.getAllBlogPosts();
+    const blogs = await DatabaseAPI.getAllBlogPosts();
     let page = 'home';
     if(req.user) {
-        const permission_level = await DB.getUserPermissions(req.user);
+        const permission_level = await DatabaseAPI.getUserPermissions(req.user);
         page = permission_level.permission_level >= 3 ? 'adminHome' : 'userHome';
     };
     res.render(page, {

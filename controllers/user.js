@@ -1,8 +1,6 @@
 const { buildSanitizeFunction, validationResult } = require('express-validator');
 const sanitize = buildSanitizeFunction(['body']);
 const { DatabaseAPI } = require('../db/database');
-const dbMeta = require('../db/dbSchema');
-const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_user_register = (req, res, next) => {
     res.render('register', {
@@ -19,7 +17,7 @@ exports.register_new_user = async (req, res, next) => {
             errors: errors.array(),
             });
     } else {
-        DB.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
+        DatabaseAPI.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
         `${req.body.lastname}`);
 
         res.render('login', {
@@ -43,11 +41,11 @@ exports.login_user = async (req, res, next) => {
                     errors: errors.array(),
                     });
     } else {
-        const verified = await DB.verifyUsername(`${req.body.username}`);
+        const verified = await DatabaseAPI.verifyUsername(`${req.body.username}`);
         if(verified) {
-            const verifyPassword = await DB.verifyUserPassword(`${req.body.username}`, `${req.body.password}`);
+            const verifyPassword = await DatabaseAPI.verifyUserPassword(`${req.body.username}`, `${req.body.password}`);
             if(verifyPassword) {
-                const userData = await DB.getUserData(req.body.username);
+                const userData = await DatabaseAPI.getUserData(req.body.username);
                 req.login(userData.id, (err) => {
                     if(err) {
                         return next(err);

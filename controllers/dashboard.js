@@ -1,13 +1,11 @@
 const { buildSanitizeFunction } = require('express-validator');
 const sanitize = buildSanitizeFunction(['body']);
 const { DatabaseAPI } = require('../db/database');
-const dbMeta = require('../db/dbSchema');
-const DB = new DatabaseAPI(dbMeta.dbSchema);
 
 exports.get_dashboard = async (req, res, next) => {
-    const userData = await DB.getUserData(null, req.user);
+    const userData = await DatabaseAPI.getUserData(null, req.user);
     let page = await userData.permission_level >= 3 ? 'adminDashboard' : 'dashboard';
-    const blogs = await DB.getUserBlogPosts(req.user);
+    const blogs = await DatabaseAPI.getUserBlogPosts(req.user);
 
     res.render(page, {
         title: `${userData.firstName}'s Dashboard`,
@@ -19,8 +17,8 @@ exports.get_dashboard = async (req, res, next) => {
 };
 
 exports.get_user_dashboard = async (req, res, next) => {
-    const userData = await DB.getUserData(req.params.username);
-    const blogs = await DB.getUserBlogPosts(userData.id);
+    const userData = await DatabaseAPI.getUserData(req.params.username);
+    const blogs = await DatabaseAPI.getUserBlogPosts(userData.id);
 
     res.render('adminControl', {
         title: 'Admin User Control',
@@ -32,8 +30,8 @@ exports.get_user_dashboard = async (req, res, next) => {
 
 exports.publish_post = async (req, res, next) => {
     await sanitize('*').escape().trim().run(req);
-    const userData = await DB.getUserData(null, req.user);
-    const blogData = await DB.createBlogPost(userData, req.body);
+    const userData = await DatabaseAPI.getUserData(null, req.user);
+    const blogData = await DatabaseAPI.createBlogPost(userData, req.body);
 
     res.json({
         title: req.body.title,
@@ -44,20 +42,20 @@ exports.publish_post = async (req, res, next) => {
 };
 
 exports.delete_blog_post = (req, res, next) => {
-    DB.deleteBlogPost(req.params.id);
+    DatabaseAPI.deleteBlogPost(req.params.id);
 };
 
 exports.modify_blog_post = async (req, res, next) => {
     await sanitize('*').escape().trim().run(req);
-    await DB.updateBlogPost(req.body);
+    await DatabaseAPI.updateBlogPost(req.body);
 
     res.json(req.body);
 };
 
 exports.modify_user = (req, res, next) => {
-    DB.modifyUserData(req.body);
+    DatabaseAPI.modifyUserData(req.body);
 };
 
 exports.delete_user = (req, res, next) => {
-    DB.deleteUser(req.params);
+    DatabaseAPI.deleteUser(req.params);
 };
