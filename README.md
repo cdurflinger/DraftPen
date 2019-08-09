@@ -8,9 +8,10 @@ This application is not currently hosted anywhere so it must be cloned in order 
 1. Install git if you do not already have it installed. It can be installed from [here](https://git-scm.com/downloads).
 2. Install node.js if you do not already have it installed. It can be installed from [here](https://nodejs.org/en/download/).
 3. Clone this repo by typing `git clone https://github.com/cdurflinger/DraftPen.git` in your git command line. The link to the repo can also be found above by clicking the 'Clone or download' button.
-4. Once the repo has been cloned, navigate to the repo folder via the command line and run `npm install`. This command will install all necessary dependencies. 
-5. Run the application by navigating to the repo folder in the command line and run `node index.js`. This will start the node server.
-6. Open your browser and navigate to localhost:5000.
+4. Once the repo has been cloned, navigate to the repo folder via the command line and run `npm install`. This command will install all necessary dependencies.
+5. Run the database init file by navigating to the root folder of the repe in the command line and run `node init.js`. This will setup the database with a default user 'admin' that has full access.
+6. Launch the application by running the command `node index.js` while in the root folder of the repo. This will start the node server.
+7. Open your browser and navigate to localhost:5000.
 
 # Built With
 This project is built with Node.js, Express.js, Passport.js, Express.Sessions, JavaScript, HTML, and SASS. I have incorporated the latest ES6 JavaScript standards in order to learn more about the syntax/features of the language.

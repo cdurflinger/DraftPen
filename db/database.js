@@ -5,15 +5,13 @@ const SALT_ROUNDS = 10;
 const dbMeta = require(__dirname + '/dbSchema');
 const dbSchema = dbMeta.dbSchema;
 
-class DatabaseManager {
-    static openDatabase() {
+class InitDatabase {
+    static initDatabase() {
         this.db = new sqlite3.Database(__dirname + '/database.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
             if (err) {
                 return console.log(err.message);
             }
         });
-    }
-    static migrateDatabase() {
         this.db.exec('PRAGMA foreign_keys = ON', (err) => {
             if(err) {
                 console.log(err);
@@ -23,13 +21,24 @@ class DatabaseManager {
             if (err) {
                 console.log(err);
             }
+            DatabaseAPI.registerUser('admin', 'admin', 'admin@mail.com', 'admin', 'admin').then(() => {
+                this.db.run(`UPDATE Users SET permission_level = 5 WHERE id = 1`);
+            });
+        });
+    }
+}
+
+class DatabaseManager {
+    static openDatabase() {
+        this.db = new sqlite3.Database(__dirname + '/database.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+            if (err) {
+                return console.log(err.message);
+            }
         });
     }
     static getDBInstance() {
         if(!this.db) {
             this.openDatabase();
-//will be removed when database initialization is setup
-            this.migrateDatabase();
         }
         return this.db;
     }
@@ -37,15 +46,18 @@ class DatabaseManager {
 
 class DatabaseAPI {
     static registerUser(username, password, email, first, last) {
-        let sql = `INSERT INTO Users(username, password, email, first_name, last_name)
-                    VALUES(?, ?, ?, ?, ?)`;
-        BCRYPT.hash(password, SALT_ROUNDS, (err, hash) => {
-            return DatabaseManager.getDBInstance().run(sql, username, hash, email, first, last, (err) => {
-                if(err) {
-                console.log(err);
-                }
+        return new Promise((resolve, reject) => {
+            let sql = `INSERT INTO Users(username, password, email, first_name, last_name)
+            VALUES(?, ?, ?, ?, ?)`;
+            BCRYPT.hash(password, SALT_ROUNDS, (err, hash) => {
+                return DatabaseManager.getDBInstance().run(sql, [username, hash, email, first, last], (err) => {
+                    if(err) {
+                    reject(err);
+                    }
+                    resolve();
+                });
             });
-        });
+        })
     }
     static verifyUsername(username) {
         return new Promise((resolve, reject) => {
@@ -218,4 +230,4 @@ class DatabaseAPI {
     }
 }
 
-module.exports = { DatabaseManager, DatabaseAPI };
+module.exports = { InitDatabase, DatabaseManager, DatabaseAPI };
