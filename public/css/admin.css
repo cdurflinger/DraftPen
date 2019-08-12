@@ -60,6 +60,11 @@
   background-color: #065490;
   color: white;
   font-size: 1.25em;
+  border: none;
+}
+
+.delete__post__button {
+  background-color: red;
 }
 
 #delete__user__button {
@@ -68,6 +73,7 @@
   background-color: red;
   color: white;
   font-size: 1.25em;
+  border: none;
 }
 
 #update__user__button, #user__register__form__button {
@@ -76,6 +82,7 @@
   background-color: #065490;
   color: white;
   font-size: 1.25em;
+  border: none;
 }
 
 #user__data__container {

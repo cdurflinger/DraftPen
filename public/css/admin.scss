@@ -47,6 +47,10 @@
     background-color: $primaryButtonColor;
     color: white;
     font-size: 1.25em;
+    border: none;
+}
+.delete__post__button {
+    background-color: red;
 }
 #delete__user__button {
     height: 35px;
@@ -54,6 +58,7 @@
     background-color: red;
     color: white;
     font-size: 1.25em;
+    border: none;
 }
 #update__user__button, #user__register__form__button {
     height: 35px;
@@ -61,6 +66,7 @@
     background-color: $primaryButtonColor;
     color: white;
     font-size: 1.25em;
+    border: none;
 }
 #user__data__container {
         font-size: 1.35em;

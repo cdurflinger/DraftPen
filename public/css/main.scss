@@ -5,42 +5,51 @@
     padding: 0;
     font-family: 'Open Sans', sans-serif;
 }
+body {
+    margin-top: 5vh;
+    background-color: #F9F9F9;
+}
+header {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 2.5em;
+    padding-left: .5em;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5vh;
+    background-color: $primaryNavColor;
+    color: $primaryColor;
+}
 nav {
     width: 100%;
     display: flex;
-    height: 5vh;
-    background-color: $primaryNavColor;
-        h2 {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 25%;
-            font-size: 2em;
-            color: $primaryColor;
-        }
         ul {
             display: flex;
             justify-content: space-around;
             align-items: center;
             list-style: none;
             width: 100%;
-            font-size: 1.5em;
+            font-size: .75em;
         }
         li a {
             text-decoration: none;
             color: $primaryColor;
         }
+        a:hover {
+            color: #D1D1D1;
+        }
 }
 main {
     width: 100%;
-    padding-bottom: 5vh;
 }
 footer {
     width: 100%;
     display: flex;
     height: 5vh;
     background-color: $primaryNavColor;
-    position: fixed;
     bottom: 0;
         ul {
             display: flex;
@@ -53,6 +62,9 @@ footer {
         li a {
             text-decoration: none;
             color: $primaryColor;
+        }
+        a:hover {
+            color: #D1D1D1;
         }
 }
 .block--container {
@@ -90,19 +102,21 @@ footer {
     }
 }
 .article__container {
-    width: 100%;
+    width: 85%;
+    min-height: 225px;
     padding: 10px;
-    margin: 1em 0;
+    margin: 1em auto;
+    color: $primaryColor;
+    background-color: #4E4C60;
     box-sizing: border-box;
-    -webkit-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.34);
-    -moz-box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.34);
-    box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.34);
-}
-.article__title {
-    font-size: 2em;
-}
-.article__post {
-    font-size: 1.75em;
+    border: 1px;
+    border-radius: 1em;
+    h2 {
+        font-size: 3rem;
+    }
+    p {
+        font-size: 1.35em;
+    }
 }
 #login__container {
     height: 90vh;
