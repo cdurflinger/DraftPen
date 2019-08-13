@@ -75,21 +75,24 @@ footer {
 .form__container {
     width: 100%;
     h1 {
-        font-size: 3.5em;
+        font-size: 4.5em;
         text-align: center;
     }
     p {
-        font-size: 1.5em;
+        font-size: 2.5em;
     }
     form {
         margin-top: 2em;
         display: flex;
         flex-direction: column;
         align-items: center;
+        label {
+            font-size: 2em;
+        }
         input {
-            width: 50%;
-            height: 35px;
-            font-size: 1.25em;
+            width: 70%;
+            height: 3em;
+            font-size: 3.5em;
         }
         button {
             margin-top: 1em;
@@ -100,6 +103,15 @@ footer {
             font-size: 1.35em;
         }
     }
+}
+.input__invalid {
+    border-color: #900;
+    background-color: #FDD;
+}
+.invalid {
+    color: red;
+    font-weight: 800;
+    font-size: 3em;
 }
 .article__container {
     width: 85%;

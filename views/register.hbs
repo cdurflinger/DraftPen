@@ -5,22 +5,29 @@
     {{#each errors}}
         <p>{{msg}}</p>
     {{/each}}
+    {{username}}
 </div>
 <div class="form__container">
     <h1>{{title}}</h1>
     <form action="/user/register" method="post">
-        <label for="userName">Username</label>
-            <input type="text" name="username" id="userName" placeholder="Username">
+        <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Username">
+            <span id="username__span" class="invalid"></span>
         <label for="email">Email</label>
-            <input type="text" name="email" id="email" placeholder="E-mail">
-        <label for="firstName">First Name</label>
-            <input type="text" name="firstname" id="firstName" placeholder="First Name">
-        <label for="lastName">Last Name</label>
-            <input type="text" name="lastname" id="lastName" placeholder="Last Name">
+            <input type="email" name="email" id="email" placeholder="E-mail">
+            <span id="email__span" class="invalid"></span>
+        <label for="firstname">First Name</label>
+            <input type="text" name="firstname" id="firstname" placeholder="First Name">
+            <span id="firstname__span" class="invalid"></span>
+        <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+            <span id="lastname__span" class="invalid"></span>
         <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Password">
-        <label for="reEnterPassword">Re-Enter Password</label>
-            <input type="password" name="reEnterPassword" placeholder="Re-Enter Password">
+            <span id="password__span" class="invalid"></span>
+        <label for="confirmpassword">Re-Enter Password</label>
+            <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password">
+            <span id="confirmpassword__span" class="invalid"></span>
         <button type="submit">Submit</button>
     </form>
     <p>Already a user? <a href="login">Login here</a></p>
@@ -32,3 +39,4 @@
                 <li><a href="about">About</a></li>
         </ul>
 </footer>
+<script src = '../script/validate.js'></script>

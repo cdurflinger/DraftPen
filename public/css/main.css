@@ -107,12 +107,12 @@ footer a:hover {
 }
 
 .form__container h1 {
-  font-size: 3.5em;
+  font-size: 4.5em;
   text-align: center;
 }
 
 .form__container p {
-  font-size: 1.5em;
+  font-size: 2.5em;
 }
 
 .form__container form {
@@ -129,10 +129,14 @@ footer a:hover {
           align-items: center;
 }
 
+.form__container form label {
+  font-size: 2em;
+}
+
 .form__container form input {
-  width: 50%;
-  height: 35px;
-  font-size: 1.25em;
+  width: 70%;
+  height: 3em;
+  font-size: 3.5em;
 }
 
 .form__container form button {
@@ -142,6 +146,17 @@ footer a:hover {
   color: white;
   background-color: #065490;
   font-size: 1.35em;
+}
+
+.input__invalid {
+  border-color: #900;
+  background-color: #FDD;
+}
+
+.invalid {
+  color: red;
+  font-weight: 800;
+  font-size: 3em;
 }
 
 .article__container {

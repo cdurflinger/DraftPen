@@ -15,7 +15,7 @@ router.get('/register', userController.get_user_register);
 router.post('/register', [
     check('username').not().isEmpty().withMessage('Please enter a username'),
     check('password').isLength({ min: 5}).withMessage('Password must be at least 5 characters long').custom((value, {req}) => {
-        if(value !== req.body.reEnterPassword) {
+        if(value !== req.body.confirmpassword) {
             throw new Error('Passwords do not match');
         } else {
             return value;

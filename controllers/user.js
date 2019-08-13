@@ -5,24 +5,37 @@ const { DatabaseAPI } = require('../db/database');
 exports.get_user_register = (req, res, next) => {
     res.render('register', {
        title: 'Register',
+       script: '../script/users.js',
     });
 };
 
 exports.register_new_user = async (req, res, next) => {
-    await sanitize('*').escape().trim().run(req);
-    const errors = validationResult(req);
+    try{
+        await sanitize('*').escape().trim().run(req);
+        let usernameUnavailable = await DatabaseAPI.verifyUsername(req.body.username);
+        const errors = validationResult(req);
     
-    if(!errors.isEmpty()) {
-        res.render('register', {
-            errors: errors.array(),
+    
+        if(!errors.isEmpty()) {
+            res.render('register', {
+                script: '../script/users.js',
+                errors: errors.array(),
+                });
+        } else if(usernameUnavailable) {
+            res.render('register', {
+                script: '../script/users.js',
+                username: 'Username is not available. Please choose a different username.'
             });
-    } else {
-        DatabaseAPI.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
-        `${req.body.lastname}`);
+        } else {
+            DatabaseAPI.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
+            `${req.body.lastname}`);
+    
+            res.render('login', {
+                title: 'Registration Complete! Please login below.',
+            });
+        }
+    } catch(err) {
 
-        res.render('login', {
-            title: 'Registration Complete! Please login below.',
-        });
     }
 };
 
