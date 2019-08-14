@@ -24,7 +24,8 @@ exports.register_new_user = async (req, res, next) => {
         } else if(usernameUnavailable) {
             res.render('register', {
                 script: '../script/users.js',
-                username: 'Username is not available. Please choose a different username.'
+                username: 'Username is not available. Please choose a different username.',
+                registerFields: req.body
             });
         } else {
             DatabaseAPI.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
