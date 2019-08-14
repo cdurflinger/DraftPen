@@ -1,6 +1,7 @@
 const DOM = {
     anchorTags: document.getElementsByClassName('user__profile__links'),
     deletePostButtons: document.getElementsByClassName('delete__post__button'),
+    closeEditContainerButton: document.getElementById('close__edit__container'),
     editPostContainer: document.getElementById('edit__post__container'),
     editPostButtons: document.getElementsByClassName('edit__post__button'),
     editBlogTitle: document.getElementById('edit__blog__title'),
@@ -60,6 +61,11 @@ const displayEditDiv = (parentId) => {
     DOM.editPostContainer.classList.toggle('edit__post__container__hide');
     //fix this in the future, it remove the DOM selector from the DIV but still works on consecutive modify clicks
     DOM.editPostContainer.setAttribute('id', parentId);
+
+    //add event listener for close button
+    DOM.closeEditContainerButton.addEventListener('click', () => {
+        DOM.editPostContainer.classList.add('edit__post__container__hide');
+    });
 }
 
 const removeElement = (id) => {
