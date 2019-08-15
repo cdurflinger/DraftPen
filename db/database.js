@@ -206,13 +206,25 @@ class DatabaseAPI {
     }
     static getAllBlogPosts() {
         return new Promise((resolve, reject) => {
-            let sql = `SELECT blog blog, title title FROM Blogs ORDER BY id`;
+            let sql = `SELECT id id, blog blog, title title FROM Blogs ORDER BY id`;
             return DatabaseManager.getDBInstance().all(sql, [], (sqlErr, rows) => {
                 if (sqlErr) {
                     reject(sqlErr);
                     return;
                 }
                 resolve(rows);
+            });
+        });
+    }
+    static getBlogPost(params) {
+        return new Promise((resolve, reject) => {
+            let sql = `SELECT id id, blog blog, title title, publish_date publish_date, modified_date modified_date FROM Blogs Where id = ?`;
+            return DatabaseManager.getDBInstance().get(sql, [params.id], (sqlErr, row) => {
+               if (sqlErr) {
+                   reject(sqlErr);
+                   return;
+               } 
+               resolve(row);
             });
         });
     }

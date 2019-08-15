@@ -8,6 +8,8 @@ router.get('/', indexController.get_home);
 
 router.get('/about', indexController.get_about);
 
+router.get('/blog/:id/:title', indexController.get_blog);
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
