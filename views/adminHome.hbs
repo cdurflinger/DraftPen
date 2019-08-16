@@ -2,11 +2,14 @@
 {{> adminHeader}}
 
 <main>
-    <h1>{{title}}</h1>
+        <h1 class="title">{{title}}</h1>
     {{#each blogs}}
         <article class="article__container">
-            <h2><a href={{href}}>{{title}}</a></h2>
-            <p>{{blog}}</p>
+            <div class="article__header">
+                <h2><a href={{href}}>{{title}}</a></h2>
+            </div>
+            <p class="article__brief">{{blog}}</p>
+            <p class="article__date">Posted: {{publish_date}}</p>
         </article>
     {{/each}}
 </main>

@@ -3,10 +3,10 @@ const { DatabaseAPI } = require('../db/database');
 let shortBlogs = (blogs) => {
     let arr = [];
     for(let i = 0; i < blogs.length; i++) {
-        if(blogs[i].blog.length > 50) {
-            arr.push({id: blogs[i].id, blog: blogs[i].blog.slice(0, 50) + '...', title: blogs[i].title, href: `/blog/${blogs[i].id}/${blogs[i].title.toLowerCase().split(' ').join('-')}`});
+        if(blogs[i].blog.length > 75) {
+            arr.push({id: blogs[i].id, blog: blogs[i].blog.slice(0, 75) + '...', title: blogs[i].title, href: `/blog/${blogs[i].id}/${blogs[i].title.toLowerCase().split(' ').join('-')}`, publish_date: blogs[i].publish_date});
         } else {
-            arr.push({blog: blogs[i].blog, title: blogs[i].title, href: `/blog/${blogs[i].id}/${blogs[i].title.toLowerCase().split(' ').join('-')}`});
+            arr.push({blog: blogs[i].blog, title: blogs[i].title, href: `/blog/${blogs[i].id}/${blogs[i].title.toLowerCase().split(' ').join('-')}`, publish_date: blogs[i].publish_date});
         }
     }
     return arr;
@@ -20,8 +20,7 @@ exports.get_home = async (req, res, next) => {
         page = permission_level.permission_level >= 3 ? 'adminHome' : 'userHome';
     };
     res.render(page, {
-        title: 'The latest blog posts!',
-        style: 'css/home.css',
+        title: 'THE LATEST',
         blogs: shortBlogs(blogs),
     });
 }

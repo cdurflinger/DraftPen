@@ -12,6 +12,7 @@ body {
 header {
     position: fixed;
     display: flex;
+    z-index: 2;
     align-items: center;
     width: 100%;
     font-size: 2.5em;
@@ -72,6 +73,77 @@ footer {
     box-sizing: border-box;
     padding-bottom: 5vh;
 }
+.title {
+    background-color: $primaryNavColor;
+    margin: 15px 0px 15px 20px;
+    display: inline-block;
+    padding: 10px 25px;
+    color: white;
+    letter-spacing: 1.7px;
+}
+.article__container {
+    width: 100%;
+    position: relative;
+    min-height: 225px;
+    padding: 0px 15px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    p {
+        font-size: 1.35em;
+        font-weight: 300;
+    }
+}
+.article__brief {
+    padding-left: 20px;
+}
+.article__date {
+    margin: 10px 0px;
+}
+.article__container::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    width: 90%;
+    border-bottom: 1px solid black;
+}
+.article__header {
+    width: 100%;
+    color: black;
+    margin-bottom: 10px;
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 3rem;
+    }
+}
+.display__blog__container {
+    width: 100%;
+}
+.display__blog__title {
+    text-align: center;
+    font-size: 3em;
+    font-weight: 700;
+}
+.display__blog__author {
+    text-align: center;
+    font-weight: 400;
+}
+.display__blog__publish__date {
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+.display__blog__content {
+    padding: 0px 25px;
+    white-space: pre-line;
+}
+#login__container {
+    height: 90vh;
+}
+
+// form CSS
 .form__container {
     width: 100%;
     h1 {
@@ -112,24 +184,4 @@ footer {
     color: red;
     font-weight: 800;
     font-size: 3em;
-}
-.article__container {
-    width: 85%;
-    min-height: 225px;
-    padding: 10px;
-    margin: 1em auto;
-    color: $primaryColor;
-    background-color: #4E4C60;
-    box-sizing: border-box;
-    border: 1px;
-    border-radius: 1em;
-    h2 {
-        font-size: 3rem;
-    }
-    p {
-        font-size: 1.35em;
-    }
-}
-#login__container {
-    height: 90vh;
 }

@@ -206,7 +206,7 @@ class DatabaseAPI {
     }
     static getAllBlogPosts() {
         return new Promise((resolve, reject) => {
-            let sql = `SELECT id id, blog blog, title title FROM Blogs ORDER BY id`;
+            let sql = `SELECT id id, blog blog, title title, publish_date publish_date FROM Blogs ORDER BY id`;
             return DatabaseManager.getDBInstance().all(sql, [], (sqlErr, rows) => {
                 if (sqlErr) {
                     reject(sqlErr);

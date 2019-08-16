@@ -15,7 +15,6 @@ exports.register_new_user = async (req, res, next) => {
         let usernameUnavailable = await DatabaseAPI.verifyUsername(req.body.username);
         const errors = validationResult(req);
     
-    
         if(!errors.isEmpty()) {
             res.render('register', {
                 script: '../script/users.js',
@@ -30,7 +29,6 @@ exports.register_new_user = async (req, res, next) => {
         } else {
             DatabaseAPI.registerUser(`${req.body.username}`, `${req.body.password}`, `${req.body.email}`, `${req.body.firstname}`, 
             `${req.body.lastname}`);
-    
             res.render('login', {
                 title: 'Registration Complete! Please login below.',
             });

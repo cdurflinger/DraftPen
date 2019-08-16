@@ -1,5 +1,4 @@
 const form = document.getElementsByTagName('form')[0];
-const email = document.getElementById('email');
 const FORM_INPUTS = {
     username: document.getElementById('username'),
     email: document.getElementById('email'),

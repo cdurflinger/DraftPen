@@ -7,18 +7,24 @@
     <button id="user__register__form__button">Register New User</button>
     <div id="register__form" class="form__container hide">
         <form action="/user/register" method="post">
-            <label for="userName">Username</label>
-                <input type="text" name="username" id="user__name" placeholder="Username">
+            <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="Username" value={{registerFields.username}}>
+                <span id="username__span" class="invalid"></span>
             <label for="email">Email</label>
-                <input type="text" name="email" id="email" placeholder="E-mail">
-            <label for="firstName">First Name</label>
-                <input type="text" name="firstname" id="first__name" placeholder="First Name">
-            <label for="lastName">Last Name</label>
-                <input type="text" name="lastname" id="last__name" placeholder="Last Name">
+                <input type="email" name="email" id="email" placeholder="E-mail" value={{registerFields.email}}>
+                <span id="email__span" class="invalid"></span>
+            <label for="firstname">First Name</label>
+                <input type="text" name="firstname" id="firstname" placeholder="First Name" value={{registerFields.firstname}}>
+                <span id="firstname__span" class="invalid"></span>
+            <label for="lastname">Last Name</label>
+                <input type="text" name="lastname" id="lastname" placeholder="Last Name" value={{registerFields.lastname}}>
+                <span id="lastname__span" class="invalid"></span>
             <label for="password">Password</label>
                 <input type="password" name="password" id="password" placeholder="Password">
-            <label for="reEnterPassword">Re-Enter Password</label>
-                <input type="password" name="reEnterPassword" placeholder="Re-Enter Password">
+                <span id="password__span" class="invalid"></span>
+            <label for="confirmpassword">Re-Enter Password</label>
+                <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password">
+                <span id="confirmpassword__span" class="invalid"></span>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -40,3 +46,4 @@
     </div>
 </div>
 {{> adminFooter}}
+<script src = '../script/validate.js'></script>
