@@ -158,6 +158,7 @@ footer a:hover {
 }
 
 .display__blog__container {
+  min-height: 90vh;
   width: 100%;
 }
 

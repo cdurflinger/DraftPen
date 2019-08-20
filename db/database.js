@@ -206,19 +206,30 @@ class DatabaseAPI {
     }
     static getAllBlogPosts() {
         return new Promise((resolve, reject) => {
-            let sql = `SELECT id id, blog blog, title title, publish_date publish_date FROM Blogs ORDER BY id`;
+            let sql = `SELECT Blogs.id AS id, Blogs.blog AS blog, Blogs.title AS title, Blogs.publish_date AS publish_date, first_name first_name, last_name last_name FROM Users INNER JOIN Blogs ON Blogs.user_id = Users.id ORDER BY id`;
             return DatabaseManager.getDBInstance().all(sql, [], (sqlErr, rows) => {
                 if (sqlErr) {
                     reject(sqlErr);
                     return;
                 }
-                resolve(rows);
+                let shortBlogs = (rows) => {
+                    let arr = [];
+                    for(let i = 0; i < rows.length; i++) {
+                        if(rows[i].blog.length > 75) {
+                            arr.push({id: rows[i].id, blog: rows[i].blog.slice(0, 75) + '...', title: rows[i].title, href: `/blog/${rows[i].id}/${rows[i].title.toLowerCase().split(' ').join('-')}`, publish_date: rows[i].publish_date, firstname: rows[i].first_name, lastname: rows[i].last_name});
+                        } else {
+                            arr.push({blog: rows[i].blog, title: rows[i].title, href: `/blog/${rows[i].id}/${rows[i].title.toLowerCase().split(' ').join('-')}`, publish_date: rows[i].publish_date});
+                        }
+                    }
+                    return arr;
+                }
+                resolve(shortBlogs(rows));
             });
         });
     }
     static getBlogPost(params) {
         return new Promise((resolve, reject) => {
-            let sql = `SELECT id id, blog blog, title title, publish_date publish_date, modified_date modified_date FROM Blogs Where id = ?`;
+            let sql = `SELECT Blogs.id AS id, Blogs.blog AS blog, Blogs.title AS title, Blogs.publish_date AS publish_date, Blogs.modified_date AS modified_date, first_name first_name, last_name last_name FROM Users INNER JOIN Blogs ON Blogs.user_id = Users.id Where Blogs.id = ?`;
             return DatabaseManager.getDBInstance().get(sql, [params.id], (sqlErr, row) => {
                if (sqlErr) {
                    reject(sqlErr);

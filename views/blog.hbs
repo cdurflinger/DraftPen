@@ -2,7 +2,7 @@
 {{> header}}
 <div class="display__blog__container">
     <h1 class="display__blog__title">{{blog.title}}</h1>
-    <p class="display__blog__author">Author Name</p>
+    <p class="display__blog__author">{{blog.last_name}}, {{blog.first_name}}</p>
     <p class="display__blog__publish__date">Published on: {{blog.publish_date}}</p>
     {{!-- <p>Modified on: {{blog.modified_date}}</p> --}}
     <p class="display__blog__content">{{blog.blog}}</p>
