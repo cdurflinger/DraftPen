@@ -23,7 +23,12 @@ for(let i = 0; i < DOM.anchorTags.length; i++) {
     DOM.anchorTags[i].setAttribute('href', 'admin/' + DOM.anchorTags[i].parentNode.getAttribute('id'));
 }
 
-
+//nav
+const navContainer = document.getElementById('nav-container');
+navContainer.addEventListener('click', () => {
+    navContainer.classList.toggle('menu__morph');
+    document.getElementsByTagName('nav')[0].classList.toggle('nav-hide');
+});
 
 
 //adminControl Section

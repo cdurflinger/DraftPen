@@ -11,7 +11,12 @@ const DOM = {
     editBlogSubmitButton: document.getElementById('edit__blog__submit__button'),
 }
 
-
+//nav
+const navContainer = document.getElementById('nav-container');
+navContainer.addEventListener('click', () => {
+    navContainer.classList.toggle('menu__morph');
+    document.getElementsByTagName('nav')[0].classList.toggle('nav-hide');
+});
 
 //event listeners
 

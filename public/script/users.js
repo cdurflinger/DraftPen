@@ -1,3 +1,4 @@
+const navContainer = document.getElementById('nav-container');
 const form = document.getElementsByTagName('form')[0];
 const FORM_INPUTS = {
     username: document.getElementById('username'),
@@ -8,6 +9,10 @@ const FORM_INPUTS = {
     confirmpassword: document.getElementById('confirmpassword'),
 }
 
+navContainer.addEventListener('click', () => {
+    navContainer.classList.toggle('menu__morph');
+    document.getElementsByTagName('nav')[0].classList.toggle('nav-hide');
+});
 
 
 //form validation

@@ -1,12 +1,17 @@
 <header>
     <p>DraftPen</p>
     <form action="/search" method="post">
-        <input type="search" name="search" required>
+        <input type="search" name="search" required placeholder="Search DraftPen">
     </form>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/user/login">Login</a></li>
-        </ul>
-    </nav>
+    <div id="nav-container">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
 </header>
+<nav class="nav-hide">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/user/login">Login</a></li>
+    </ul>
+</nav>

@@ -1,11 +1,19 @@
 <header>
     <p>DraftPen</p>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="../dashboard">My Dashboard</a></li>
-            <li><a href="../admin">Admin</a></li>
-            <li><a href="../user/logout">Logout</a></li>
-        </ul>
-    </nav>
+    <form action="/search" method="post">
+        <input type="search" name="search" required placeholder="Search DraftPen">
+    </form>
+    <div id="nav-container">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
 </header>
+<nav class="nav-hide">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="../dashboard">My Dashboard</a></li>
+        <li><a href="../admin">Admin</a></li>
+        <li><a href="../user/logout">Logout</a></li>
+    </ul>
+</nav>

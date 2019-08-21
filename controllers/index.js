@@ -10,13 +10,15 @@ exports.get_home = async (req, res, next) => {
     res.render(page, {
         title: 'THE LATEST',
         blogs: blogs,
+        script: '../script/users.js',
     });
 }
 
 exports.get_blog = async (req, res, next) => {
     const blog = await DatabaseAPI.getBlogPost(req.params);
     res.render('blog', {
-       blog: blog, 
+       blog: blog,
+       script: '../../script/users.js',
     });
 };
 
