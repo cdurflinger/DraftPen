@@ -20,6 +20,14 @@ exports.get_blog = async (req, res, next) => {
     });
 };
 
+exports.search_blogs = async (req, res, next) => {
+    const blogs = await DatabaseAPI.searchBlogPosts(req.body.search);
+    res.render('home', {
+      title: `Results for ${req.body.search}`,
+      blogs: blogs,
+    });
+};
+
 exports.get_about = (req, res, next) => {
     res.send('Page not created yet. Please check back later!');
 };

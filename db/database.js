@@ -239,6 +239,39 @@ class DatabaseAPI {
             });
         });
     }
+    static searchBlogPosts(searchParam) {
+        return new Promise((resolve, reject) => {
+            let arr = searchParam.split(' ');
+            let str = `SELECT * FROM Blogs WHERE title LIKE`;
+            (function (){
+                for(let i = 0; i < arr.length; i++){
+                    if(i != arr.length-1) {
+                        str += ` "%${arr[i]}%" OR title LIKE`;
+                    } else {
+                        str += ` "%${arr[i]}%"`;
+                    }
+                }
+            })()
+            return DatabaseManager.getDBInstance().all(str, [], (sqlErr, rows) => {
+                if (sqlErr) {
+                    reject(sqlErr);
+                    return;
+                }
+                let shortBlogs = (rows) => {
+                    let arr = [];
+                    for(let i = 0; i < rows.length; i++) {
+                        if(rows[i].blog.length > 75) {
+                            arr.push({id: rows[i].id, blog: rows[i].blog.slice(0, 75) + '...', title: rows[i].title, href: `/blog/${rows[i].id}/${rows[i].title.toLowerCase().split(' ').join('-')}`, publish_date: rows[i].publish_date, firstname: rows[i].first_name, lastname: rows[i].last_name});
+                        } else {
+                            arr.push({blog: rows[i].blog, title: rows[i].title, href: `/blog/${rows[i].id}/${rows[i].title.toLowerCase().split(' ').join('-')}`, publish_date: rows[i].publish_date});
+                        }
+                    }
+                    return arr;
+                }
+                resolve(shortBlogs(rows));
+            });
+        });
+    }
     static getUserBlogPosts(user) {
         return new Promise((resolve, reject) => {
             let sql = `SELECT id id, blog blog, title title, publish_date publishDate FROM Blogs WHERE user_id = ? ORDER BY id`;

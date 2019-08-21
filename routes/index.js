@@ -10,12 +10,16 @@ router.get('/about', indexController.get_about);
 
 router.get('/blog/:id/:title', indexController.get_blog);
 
+//search post
+
+router.post('/search', indexController.search_blogs);
+
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-    done(null, user);
+  done(null, user);
 });
 
 module.exports = router;
