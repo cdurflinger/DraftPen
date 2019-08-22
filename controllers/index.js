@@ -27,6 +27,7 @@ exports.search_blogs = async (req, res, next) => {
     res.render('home', {
       title: `Results for ${req.body.search}`,
       blogs: blogs,
+      script: '../../script/users.js',
     });
 };
 

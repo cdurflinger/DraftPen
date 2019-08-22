@@ -242,7 +242,6 @@ class DatabaseAPI {
     static searchBlogPosts(searchParam) {
         return new Promise((resolve, reject) => {
             let arr = searchParam.split(' ');
-            // let str = `SELECT Blogs.blog AS blog, Blogs.title AS title, Blogs.publish_date AS publish_date, Blogs.modified_date AS modified_date FROM Users INNER JOIN Blogs ON Blogs.user_id = Users.id WHERE Blogs.title LIKE`
             let str = `SELECT * FROM Blogs WHERE title LIKE`;
             (function (){
                 for(let i = 0; i < arr.length; i++){
@@ -253,7 +252,6 @@ class DatabaseAPI {
                     }
                 }
             })()
-            console.log(str);
             return DatabaseManager.getDBInstance().all(str, [], (sqlErr, rows) => {
                 if (sqlErr) {
                     reject(sqlErr);
@@ -270,7 +268,6 @@ class DatabaseAPI {
                     }
                     return arr;
                 }
-                console.log(shortBlogs(rows));
                 resolve(shortBlogs(rows));
             });
         });
